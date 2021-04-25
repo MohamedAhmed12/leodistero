@@ -5,11 +5,11 @@ namespace App\Services;
 use App\Interfaces\ShippingAdapterInterface;
 use Mvdnbrk\Laravel\Facades\DhlParcel;
 
-class AramexAdapter implements ShippingAdapterInterface
+class Aramex implements ShippingAdapterInterface
 {
     public function calculateRate()
     {
-
+        
         $parcel = new \Mvdnbrk\DhlParcel\Resources\Parcel([
             'reference' => 'your own reference for the parcel (optional)',
             'recipient' => [

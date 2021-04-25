@@ -41,4 +41,4 @@ Route::prefix('auth')->group(function () {
 Route::resource('/countries', CountryController::class);
 Route::resource('/cities', CityController::class);
 Route::resource('/states', StateController::class);
-Route::get('/shipping/rate', [ShippingController::class, 'calculateRate']);
+Route::get('/shipping/rate/{shippingCompany}', [ShippingController::class, 'calculateRate']);
