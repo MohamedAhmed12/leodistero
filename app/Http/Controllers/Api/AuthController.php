@@ -153,15 +153,7 @@ class AuthController extends Controller
         } else {
             unset($data['password']);
         }
-
-        if (array_key_exists('avatar', $data)) {
-            $data = Images::update($user, 'avatar', $data);
-        }
-
-        if (array_key_exists('official_id', $data)) {
-            $data = Images::update($user, 'official_id', $data);
-        }
-
+        
         $user->update($data);
 
         return $user;
