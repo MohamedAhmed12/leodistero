@@ -14,7 +14,7 @@ class UpdateProfileFormRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  =>  ['nullable', 'string', 'min:3', 'max:25'],
+            'name'  =>  ['nullable', 'string', 'min:3'],
             'email'  =>  ['nullable', 'sometimes', 'email'],
             'password'  =>  ['nullable', 'min:8', 'max:32', 'confirmed'],
             'phone_number' => ['nullable', 'numeric'],

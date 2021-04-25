@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Requests\LoginUserFormRequest;
+use App\Http\Requests\RegisterUserFormRequest;
 use App\Http\Requests\UpdateProfileFormRequest;
 
 class AuthController extends Controller
@@ -48,7 +49,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return void
      */
-    public function register(LoginUserFormRequest $request)
+    public function register(RegisterUserFormRequest $request)
     {
         $data = $request->validated();
         $data['password'] = Hash::make($data['password']);
