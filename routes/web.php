@@ -28,9 +28,7 @@ use App\Http\Controllers\StateController;
 |
 */
 
-Route::get('/', function(){
-    return 'Home';
-});
+Route::get('/', DashboardController::class)->middleware(['auth','verified']);
 
 Route::resource('/users', UsersController::class)->middleware(['auth','verified']);
 Route::resource('/countries', CountryController::class)->middleware(['auth','verified']);
