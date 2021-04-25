@@ -29,7 +29,7 @@ use App\Http\Controllers\StateController;
 */
 
 Route::get('/', function(){
-    return '<img src="' . asset('storage/images/2uXqFVJ3z2aTwJt8rZE30AX0DO2OJALNYkdVY5Xq.jpg'). '" alt="">';
+    return 'Home';
 });
 
 Route::resource('/users', UsersController::class)->middleware(['auth','verified']);
