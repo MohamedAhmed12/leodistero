@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Models\User;
 use App\Traits\Images;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -153,7 +154,10 @@ class AuthController extends Controller
         } else {
             unset($data['password']);
         }
-        
+        $data = Arr::where($data, function($val, $key) {
+            return !is_null($val);
+        });
+
         $user->update($data);
 
         return $user;

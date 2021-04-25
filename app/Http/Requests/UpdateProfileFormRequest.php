@@ -15,15 +15,15 @@ class UpdateProfileFormRequest extends FormRequest
     {
         return [
             'name'  =>  ['nullable', 'string', 'min:3', 'max:25'],
-            'email'  =>  ['nullable', 'email'],
+            'email'  =>  ['nullable', 'sometimes', 'email'],
             'password'  =>  ['nullable', 'min:8', 'max:32', 'confirmed'],
             'phone_number' => ['nullable', 'numeric'],
-            'avatar' => ['nullable','string'], // max size is 2048 KB
-            'official_id' => ['nullable','string'], // max size is 2048 KB
+            'avatar' => ['nullable', 'string'], // max size is 2048 KB
+            'official_id' => ['nullable', 'string'], // max size is 2048 KB
             'country_id' => ['nullable', 'exists:countries,id'],
             'state_id' => ['nullable', 'exists:states,id'],
             'address_line_1' => ['nullable', 'max:32', 'string'],
-            'zip_code' => ['nullable','string'],
+            'zip_code' => ['nullable', 'string'],
         ];
     }
 }
