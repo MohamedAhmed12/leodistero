@@ -2,16 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\DHL;
 use App\Services\AramexAdapter;
 use App\Interfaces\ShippingAdapterInterface;
 
 class ShippingController extends Controller
 {
-    public function calculateRate( ShippingAdapterInterface $shippingCompany)
+    private $dhl;
+
+    public function __construct(DHL $dhl)
     {
-        $rate   =[
-            'aramex' => $shippingCompany->calculateRate()
+        $this->dhl = $dhl;
+    }
+
+    public function calculateRate()
+    {
+        $data = request()->all();
+        $rate = [
+            'dhl' => $this->dhl->calculateRate($data)
         ];
-       return($rate);
+        return ($rate);
     }
 }

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Scopes\UserState;
 use Spatie\MediaLibrary\HasMedia;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -54,5 +56,11 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     public function state(){
         return $this->belongsTo(State::class);
+    }
+
+
+    protected static function booted()
+    {
+        static::addGlobalScope(new UserState);
     }
 }

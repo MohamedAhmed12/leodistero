@@ -4,5 +4,5 @@ namespace App\Interfaces;
 
 interface ShippingAdapterInterface
 {
-    public function calculateRate();
+    public function calculateRate(Array $data);
 }

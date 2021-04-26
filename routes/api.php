@@ -42,5 +42,5 @@ Route::prefix('auth')->group(function () {
 Route::resource('/countries', CountryController::class);
 Route::resource('/cities', CityController::class);
 Route::resource('/states', StateController::class);
-Route::get('/shipping/rate/{shippingCompany}', [ShippingController::class, 'calculateRate']);
+Route::post('/shipping/rate', [ShippingController::class, 'calculateRate']);
 Route::post('/image/upload', [ImageController::class, 'upload']);

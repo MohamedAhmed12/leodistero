@@ -17,11 +17,17 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Country::factory(10)->create()->map(function($country){
-            $country->cities()->saveMany(City::factory(10)->make());
-            $country->cities->map(function($city){
-                $city->states()->saveMany(State::factory(10)->make());
-            });
-        });
+        Country::create([
+            'name' => 'Saudi Arabia'
+        ]);
+        Country::create([
+            'name' => 'Egypt'
+        ]);
+        // Country::factory(10)->create()->map(function($country){
+        //     $country->cities()->saveMany(City::factory(10)->make());
+        //     $country->cities->map(function($city){
+        //         $city->states()->saveMany(State::factory(10)->make());
+        //     });
+        // });
     }
 }
