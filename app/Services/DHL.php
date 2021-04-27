@@ -26,23 +26,30 @@ class DHL implements ShippingAdapterInterface
     {
         $volume = $data['length'] * $data['width'] * $data['height'];
         $totlaWeight = $volume * $data['weight'];
+        $val = 0;
+
         if ($totlaWeight < 20) {
-            return 26;
+            $val = 26;
         } elseif ($totlaWeight < 200) {
-            return 30;
+            $val = 30;
         } elseif ($totlaWeight < 350) {
-            return 38;
+            $val = 38;
         } elseif ($totlaWeight < 600) {
-            return 40;
+            $val = 40;
         } elseif ($totlaWeight < 1450) {
-            return 45;
+            $val = 45;
         } elseif ($totlaWeight < 1450) {
-            return 45;
+            $val = 45;
         } else {
-            return ($data['weight'] * 1.5) + $volume;
+            $val = ($data['weight'] * 1.5) + $volume;
         }
+
+        return [
+            "currency" => "USD",
+            "value" => $val
+        ];
         // dd(Http::get('https://jsonplaceholder.typicode.com/todos/1'));
 
-        // return Http::dd()->get('api-mock.dhl.com/mydhlapi/rates');
+        // $val= Http::dd()->get('api-mock.dhl.com/mydhlapi/rates');
     }
 }
