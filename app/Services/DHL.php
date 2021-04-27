@@ -29,19 +29,19 @@ class DHL implements ShippingAdapterInterface
         $val = 0;
 
         if ($totlaWeight < 20) {
-            $val = 26;
+            $val = '26';
         } elseif ($totlaWeight < 200) {
-            $val = 30;
+            $val = '30';
         } elseif ($totlaWeight < 350) {
-            $val = 38;
+            $val = '38';
         } elseif ($totlaWeight < 600) {
-            $val = 40;
+            $val = '40';
         } elseif ($totlaWeight < 1450) {
-            $val = 45;
+            $val = '45';
         } elseif ($totlaWeight < 1450) {
-            $val = 45;
+            $val = '45';
         } else {
-            $val = ($data['weight'] * 1.5) + $volume;
+            $val = strval(($data['weight'] * 1.5) + $volume);
         }
 
         return [

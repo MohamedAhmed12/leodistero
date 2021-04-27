@@ -18,10 +18,12 @@ class CountriesTableSeeder extends Seeder
     public function run()
     {
         Country::create([
-            'name' => 'Saudi Arabia'
+            'name' => 'Saudi Arabia',
+            'code' => 'SA'
         ]);
         Country::create([
-            'name' => 'Egypt'
+            'name' => 'Egypt',
+            'code' => 'EG'
         ]);
         // Country::factory(10)->create()->map(function($country){
         //     $country->cities()->saveMany(City::factory(10)->make());

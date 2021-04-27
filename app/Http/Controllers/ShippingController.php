@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Services\DHL;
+use App\Models\Country;
+use App\Services\Fedex;
 use App\Services\AramexAdapter;
 use App\Interfaces\ShippingAdapterInterface;
-use App\Services\Fedex;
 
 class ShippingController extends Controller
 {
@@ -21,11 +22,14 @@ class ShippingController extends Controller
     public function calculateRate()
     {
         $data = request()->all();
+        $data['from'] = Country::findOrFail($data['from'])->toArray();
+        $data['to'] = Country::findOrFail($data['to'])->toArray();
+
         $rate = [
             'dhl' => $this->dhl->calculateRate($data),
             'fedex' => $this->fedex->calculateRate($data),
         ];
-        var_dump($rate);
+        
         return response()->json($rate);
     }
 }
