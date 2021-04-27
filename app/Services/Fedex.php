@@ -82,7 +82,7 @@ class Fedex implements ShippingAdapterInterface
         //     }
         // }
 
-        dd($rateReply->RateReplyDetails[0]->RatedShipmentDetails);
+        dd($rateReply);
         // return $rateReply->RateReplyDetails[0]->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetFedExCharge->toArray();
         // echo $json_result;
         // $rateReply = json_decode($rateReply);
