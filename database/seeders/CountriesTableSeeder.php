@@ -22,6 +22,10 @@ class CountriesTableSeeder extends Seeder
             'name' => 'Saudi Arabia',
             'code' => 'SA',
         ]);
+        Country::create([
+            'name' => 'United States',
+            'code' => 'US',
+        ]);
 
         // Country::factory(10)->create()->map(function($country){
         //     $country->cities()->saveMany(City::factory(10)->make());

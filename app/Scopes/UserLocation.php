@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserState implements Scope
+class UserLocation implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->with('state');
+        $builder->with(['state', 'country']);
     }
 }

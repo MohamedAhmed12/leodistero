@@ -24,30 +24,32 @@ class DHL implements ShippingAdapterInterface
     }
     public function calculateRate($data)
     {
-        $volume = $data['length'] * $data['width'] * $data['height'];
-        $totlaWeight = $volume * $data['weight'];
-        $val = 0;
+        // $volume = $data['length'] * $data['width'] * $data['height'];
+        // $totlaWeight = $volume * $data['weight'];
+        // $val = 0;
 
-        if ($totlaWeight < 20) {
-            $val = '26';
-        } elseif ($totlaWeight < 200) {
-            $val = '30';
-        } elseif ($totlaWeight < 350) {
-            $val = '38';
-        } elseif ($totlaWeight < 600) {
-            $val = '40';
-        } elseif ($totlaWeight < 1450) {
-            $val = '45';
-        } elseif ($totlaWeight < 1450) {
-            $val = '45';
-        } else {
-            $val = strval(($data['weight'] * 1.5) + $volume);
-        }
+        // if ($totlaWeight < 20) {
+        //     $val = '26';
+        // } elseif ($totlaWeight < 200) {
+        //     $val = '30';
+        // } elseif ($totlaWeight < 350) {
+        //     $val = '38';
+        // } elseif ($totlaWeight < 600) {
+        //     $val = '40';
+        // } elseif ($totlaWeight < 1450) {
+        //     $val = '45';
+        // } elseif ($totlaWeight < 1450) {
+        //     $val = '45';
+        // } else {
+        //     $val = strval(($data['weight'] * 1.5) + $volume);
+        // }
 
-        return [
-            "currency" => "USD",
-            "value" => $val
-        ];
+        // return [
+        //     "currency" => "USD",
+        //     "value" => $val
+        // ];
+
+
         // dd(Http::get('https://jsonplaceholder.typicode.com/todos/1'));
 
         // $val= Http::dd()->get('api-mock.dhl.com/mydhlapi/rates');

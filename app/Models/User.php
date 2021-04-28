@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Scopes\UserState;
+use App\Scopes\UserLocation;
 use Spatie\MediaLibrary\HasMedia;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
@@ -61,6 +61,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
 
     protected static function booted()
     {
-        static::addGlobalScope(new UserState);
+        static::addGlobalScope(new UserLocation);
     }
 }

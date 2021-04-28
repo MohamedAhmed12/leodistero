@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\State;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Country extends Model
 {
@@ -22,8 +23,8 @@ class Country extends Model
         return $this->hasMany(City::class);
     }
     
-    public function capitalCity(){
-        return $this->hasOne(City::class, 'id', 'capital_id');
+    public function defaultState(){
+        return $this->hasOne(State::class, 'id', 'capital_id');
     }
 
 }

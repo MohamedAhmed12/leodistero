@@ -9,7 +9,6 @@ class State extends Model
 {
     use HasFactory;
 
-
     /**
      * The attributes that are mass assignable.
      *
@@ -17,9 +16,8 @@ class State extends Model
      */
     protected $fillable = [
         'name',
-        'city_id',
+        'country_id',
     ];
-
 
     /**
      * The attributes that should be cast to native types.
@@ -27,11 +25,11 @@ class State extends Model
      * @var array
      */
     protected $casts = [
-        'city_id' => 'integer',
+        'country_id' => 'integer',
     ];
 
-
-    public function city(){
-        return $this->belongsTo(City::class);
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
     }
 }

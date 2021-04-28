@@ -11,16 +11,16 @@ class Aramex implements ShippingAdapterInterface
     {
         $originAddress = [
             'line1' => 'Test string',
-            'city' => $data['from']['capital_city']['name'],
+            'city' => $data['from']['default_state']['name'],
             'country_code' => $data['from']['code'],
-            'postal_code' => $data['from']['capital_city']['postal_code']
+            'postal_code' => $data['from']['default_state']['postal_code']
         ];
 
         $destinationAddress = [
             'line1' => 'Test String',
-            'city' => $data['to']['capital_city']['name'],
+            'city' => $data['to']['default_state']['name'],
             'country_code' => $data['to']['code'],
-            'postal_code' => $data['to']['capital_city']['postal_code']
+            'postal_code' => $data['to']['default_state']['postal_code']
         ];
 
         $currency = 'USD';
