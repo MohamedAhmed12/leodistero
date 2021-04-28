@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "469a27f2c27d7b185a7f632a94d1adcf",
+    "content-hash": "d47b96d71c5c260748606b80e0cc7ad2",
     "packages": [
         {
             "name": "almasaeed2010/adminlte",
@@ -3099,6 +3099,59 @@
                 "psr-7"
             ],
             "time": "2021-02-18T15:41:32+00:00"
+        },
+        {
+            "name": "octw/aramex",
+            "version": "1.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Moustafa22/Laravel-Aramex-SDK.git",
+                "reference": "66187ba1ba75c07f8af36c540f1742efa95a6eb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Moustafa22/Laravel-Aramex-SDK/zipball/66187ba1ba75c07f8af36c540f1742efa95a6eb7",
+                "reference": "66187ba1ba75c07f8af36c540f1742efa95a6eb7",
+                "shasum": ""
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Octw\\Aramex\\AramexServiceProvider"
+                    ],
+                    "aliases": {
+                        "Aramex": "Octw\\Aramex\\Aramex"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Octw\\Aramex\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Moustafa Allahham",
+                    "email": "iteng.moustafa@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A Library to integrate with Aramex APIs",
+            "keywords": [
+                "aramex",
+                "integraton",
+                "laravel",
+                "php",
+                "sdk",
+                "ship",
+                "shipping"
+            ],
+            "time": "2021-01-17T15:43:08+00:00"
         },
         {
             "name": "opis/closure",

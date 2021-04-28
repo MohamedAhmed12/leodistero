@@ -2,10 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\City;
 use App\Models\Country;
-use App\Models\Glossary;
-use App\Models\State;
 use Illuminate\Database\Seeder;
 
 class CountriesTableSeeder extends Seeder
@@ -18,13 +15,14 @@ class CountriesTableSeeder extends Seeder
     public function run()
     {
         Country::create([
-            'name' => 'Saudi Arabia',
-            'code' => 'SA'
+            'name' => 'Egypt',
+            'code' => 'EG',
         ]);
         Country::create([
-            'name' => 'Egypt',
-            'code' => 'EG'
+            'name' => 'Saudi Arabia',
+            'code' => 'SA',
         ]);
+
         // Country::factory(10)->create()->map(function($country){
         //     $country->cities()->saveMany(City::factory(10)->make());
         //     $country->cities->map(function($city){

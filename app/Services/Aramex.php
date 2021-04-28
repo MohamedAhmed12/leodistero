@@ -3,101 +3,59 @@
 namespace App\Services;
 
 use App\Interfaces\ShippingAdapterInterface;
-use Mvdnbrk\Laravel\Facades\DhlParcel;
+use Octw\Aramex\Aramex as AramexProvider;
 
 class Aramex implements ShippingAdapterInterface
 {
-    public function calculateRate()
+    public function calculateRate($data)
     {
-        
-        $parcel = new \Mvdnbrk\DhlParcel\Resources\Parcel([
-            'reference' => 'your own reference for the parcel (optional)',
-            'recipient' => [
-                'first_name' => 'John',
-                'last_name' => 'Doe',
-                'street' => 'Poststraat',
-                'number' => '1',
-                'number_suffix' => 'A',
-                'postal_code' => '1234AA',
-                'city' => 'Amsterdam',
-                'cc' => 'NL',
-            ],
-            'sender' => [
-                'company_name' => 'Your Company Name',
-                'street' => 'Pakketstraat',
-                'additional_address_line' => 'Industrie 9999',
-                'number' => '99',
-                'postal_code' => '9999AA',
-                'city' => 'Amsterdam',
-                'cc' => 'NL',
-            ],
-            // Optional. This will be set as the default.
-            'pieces' => [
-                [
-                    'parcel_type' => \Mvdnbrk\DhlParcel\Resources\Piece::PARCEL_TYPE_SMALL,
-                    'quantity' => 1,
-                ],
-            ],
-        ]);
-        // dd($parcel);
-        $shipment = dhlparcel()->shipments()->create($parcel);
+        $originAddress = [
+            'line1' => 'Test string',
+            'city' => $data['from']['capital_city']['name'],
+            'country_code' => $data['from']['code'],
+            'postal_code' => $data['from']['capital_city']['postal_code']
+        ];
 
-        dd(22);
-        // $params = array(
-        //     'ClientInfo'              => array(
-        //         // 'AccountCountryCode'    => 'JO',
-        //         // 'AccountEntity'             => 'AMM',
-        //         // 'AccountNumber'             => '00000',
-        //         // 'AccountPin'             => '000000',
-        //         'UserName'                 => env('ARAMEX_USERNAME'),
-        //         'Password'                 => env('ARAMEX_PASSWORD'),
-        //         'Version'                 => 'v1.0'
-        //     ),
+        $destinationAddress = [
+            'line1' => 'Test String',
+            'city' => $data['to']['capital_city']['name'],
+            'country_code' => $data['to']['code'],
+            'postal_code' => $data['to']['capital_city']['postal_code']
+        ];
 
-        //     'Transaction'             => array(
-        //         'Reference1'            => '001'
-        //     ),
+        $currency = 'USD';
 
-        //     'OriginAddress'          => array(
-        //         'City'                    => 'Amman',
-        //         'CountryCode'                => 'JO'
-        //     ),
+        $shipmentDetailsStandard = [
+            'weight' => 10, // KG so from LB to KG *0.453592
+            'number_of_pieces' => 1,
+            'payment_type' => 'P', // if u don't pass it, it will take the config default value 
+            'product_group' => 'EXP', // if u don't pass it, it will take the config default value
+            'product_type' => 'DPX', // if u don't pass it, it will take the config default value
+            'height' => 5.5, // CM
+            'width' => 3,  // CM
+            'length' => 2.3  // CM
+        ];
 
-        //     'DestinationAddress'     => array(
-        //         'City'                    => 'Dubai',
-        //         'CountryCode'            => 'AE'
-        //     ),
-        //     'ShipmentDetails'        => array(
-        //         'PaymentType'             => 'P',
-        //         'ProductGroup'             => 'EXP',
-        //         'ProductType'             => 'PPX',
-        //         'ActualWeight'              => array('Value' => 5, 'Unit' => 'KG'),
-        //         'ChargeableWeight'          => array('Value' => 5, 'Unit' => 'KG'),
-        //         'NumberOfPieces'         => 5
-        //     )
-        // );
+        $shipmentDetailsEXP = $shipmentDetailsStandard;
+        $shipmentDetailsEXP['product_type'] = 'PPX';
+    
+        $standard = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsStandard, $currency);
+        $express = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsEXP, $currency);
 
-        $params = array(
-            'ClientInfo'              => array(
-                'AccountCountryCode'    => 'GB',
-                'AccountEntity'             => 'LON',
-                'AccountNumber'             => '102331',
-                'AccountPin'             => '321321',
-                'UserName'                 => "testingapi@aramex.com",
-                'Password'                 => 'R123456789$r',
-                'Version'                 => 'v1'
-            ),
+        if (!isset($standard->error) && !isset($express->error)) {
+            return [
+                $standard->TotalAmount,
+                $express->TotalAmount
+            ];
+        } else {
+            $errors=[];
+            $errors += isset($standard->errors->Notification);
+            $errors += isset($express->errors->Notification);
 
-            'Transaction'             => array(
-                'Reference1'            => '001'
-            ),
-            'Shipments'                => array(
-                'XXXXXXXXXX'
-            )
-        );
-        // $soapClient = new \SoapClient(public_path('/static/aramex-rates-calculator-wsdl.wsdl'), array('trace' => 1));
-        $soapClient = new \SoapClient(public_path('/static/shipments-tracking-api-wsdl.wsdl'), array('trace' => 1));
-        $results = $soapClient->TrackShipments($params);
-        return $results;
+            $error = array_map(function ($notification) {
+                return $notification->Message;
+            }, $errors);
+            return $error;
+        }
     }
 }

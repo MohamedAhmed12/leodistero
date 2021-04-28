@@ -16,9 +16,15 @@ class CreateCitiesTable extends Migration
         Schema::create('cities', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('postal_code');
             $table->foreignId('country_id');
             $table->timestamps();
         });
+
+        Schema::table('countries', function(Blueprint $table){
+            $table->foreign('capital_id')->references('id')->on('cities')->onDelete('cascade');
+        });
+
     }
 
     /**

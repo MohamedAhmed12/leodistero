@@ -32,17 +32,22 @@ class Fedex implements ShippingAdapterInterface
         //shipper
         $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
         // $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
-        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['name'];
+        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital_city']['name'];
+        // $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
+        
+        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital_city']['postal_code'];
         // $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
-        // $rateRequest->RequestedShipment->Shipper->Address->PostalCode = 38115;
         $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
 
         //recipient
         // $rateRequest->RequestedShipment->Recipient->Address->StreetLines = ['13450 Farmcrest Ct'];
-        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['name'];
+        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital_city']['name'];
+        // $rateRequest->RequestedShipment->Recipient->Address->City = 'Herndon';
+        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['capital_city']['postal_code'];
         // $rateRequest->RequestedShipment->Recipient->Address->StateOrProvinceCode = 'VA';
-        // $rateRequest->RequestedShipment->Recipient->Address->PostalCode = 20171;
         $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
+        // dd( $rateRequest->RequestedShipment->Recipient->Address);
+
 
         //shipping charges payment
         $rateRequest->RequestedShipment->ShippingChargesPayment->PaymentType = SimpleType\PaymentType::_SENDER;
@@ -69,23 +74,26 @@ class Fedex implements ShippingAdapterInterface
 
         $rateReply = $rateServiceRequest->getGetRatesReply($rateRequest); // send true as the 2nd argument to return the SoapClient's stdClass response.
 
+        $res = [];
 
-        // if (!empty($rateReply->RateReplyDetails)) {
-        //     foreach ($rateReply->RateReplyDetails as $rateReplyDetail) {
-        //         var_dump($rateReplyDetail->ServiceType);
-        //         if (!empty($rateReplyDetail->RatedShipmentDetails)) {
-        //             foreach ($rateReplyDetail->RatedShipmentDetails as $ratedShipmentDetail) {
-        //                 var_dump($ratedShipmentDetail->ShipmentRateDetail->RateType . ": " . $ratedShipmentDetail->ShipmentRateDetail->TotalNetCharge->Amount);
-        //             }
-        //         }
-        //         echo "<hr />";
-        //     }
-        // }
-
-        return $rateReply->RateReplyDetails[0]->RatedShipmentDetails[0]->ShipmentRateDetail->TotalNetFedExCharge->toArray();
-        // echo $json_result;
-        // $rateReply = json_decode($rateReply);
-        // return response()->json((array)$rateReply);
-        // return json_encode($rateReply->RateReplyDetails);
+        // dd($rateReply->RateReplyDetails);
+        // dd(22);
+        if (!empty($rateReply->RateReplyDetails)) {
+            foreach ($rateReply->RateReplyDetails as $rateReplyDetail) {
+                if (!empty($rateReplyDetail->RatedShipmentDetails)) {
+                    $res[$rateReplyDetail->ServiceType] = array_map(
+                        function ($ratedShipmentDetail) {
+                            return $ratedShipmentDetail->ShipmentRateDetail->RateType . ": " . $ratedShipmentDetail->ShipmentRateDetail->TotalNetCharge->Amount;
+                        },
+                        $rateReplyDetail->RatedShipmentDetails
+                    );
+                }
+            }
+        }
+        
+        return([
+            'standard' => isset($res['FEDEX_GROUND']) && str_contains($res['FEDEX_GROUND'][0], ' ') ? explode(': ', $res['FEDEX_GROUND'][0])[1] : '',
+            'express' => isset($res['FEDEX_EXPRESS_SAVER']) && str_contains($res['FEDEX_EXPRESS_SAVER'][0], ' ') ? explode(': ', $res['FEDEX_EXPRESS_SAVER'][0])[1] : '',
+        ]);
     }
 }
