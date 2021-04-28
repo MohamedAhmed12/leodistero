@@ -26,19 +26,19 @@ class Aramex implements ShippingAdapterInterface
         $currency = 'USD';
 
         $shipmentDetailsStandard = [
-            'weight' => 10, // KG so from LB to KG *0.453592
+            'weight' => $data['weight'] * 0.453592, // KG so from LB to KG *0.453592
             'number_of_pieces' => 1,
             'payment_type' => 'P', // if u don't pass it, it will take the config default value 
             'product_group' => 'EXP', // if u don't pass it, it will take the config default value
             'product_type' => 'DPX', // if u don't pass it, it will take the config default value
-            'height' => 5.5, // CM
-            'width' => 3,  // CM
-            'length' => 2.3  // CM
+            'height' => $data['height'] * 2.54, // CM
+            'width' => $data['width'] * 2.54,  // CM
+            'length' => $data['length']  * 2.54 // CM
         ];
 
         $shipmentDetailsEXP = $shipmentDetailsStandard;
         $shipmentDetailsEXP['product_type'] = 'PPX';
-    
+
         $standard = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsStandard, $currency);
         $express = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsEXP, $currency);
 
@@ -48,7 +48,7 @@ class Aramex implements ShippingAdapterInterface
                 $express->TotalAmount
             ];
         } else {
-            $errors=[];
+            $errors = [];
             $errors += isset($standard->errors->Notification);
             $errors += isset($express->errors->Notification);
 
