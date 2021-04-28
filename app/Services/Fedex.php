@@ -27,37 +27,19 @@ class Fedex implements ShippingAdapterInterface
         $rateRequest->Version->Major = 28;
         $rateRequest->Version->Minor = 0;
         $rateRequest->Version->Intermediate = 0;
-
         $rateRequest->ReturnTransitAndCommit = true;
-
-        // //shipper
-        // $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
-        // // $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
-        // $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital_city']['name'];
-        // // $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
-
-        // $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital_city']['postal_code'];
-        // // $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
-        // $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
-
-        // //recipient
-        // $rateRequest->RequestedShipment->Recipient->Address->StreetLines = ['13450 Farmcrest Ct'];
-        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital_city']['name'];
-        // $rateRequest->RequestedShipment->Recipient->Address->City = 'Herndon';
-        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['capital_city']['postal_code'];
-        // $rateRequest->RequestedShipment->Recipient->Address->StateOrProvinceCode = 'VA';
-        $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
-        // dd( $rateRequest->RequestedShipment->Recipient->Address);
 
         //shipper
         $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
-        $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
-        $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
-        $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
-        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = 38115;
-        $rateRequest->RequestedShipment->Shipper->Address->CountryCode = 'US';
+        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital_city']['name'];
+        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital_city']['postal_code'];
+        $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
 
-
+        // //recipient
+        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital_city']['name'];
+        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['capital_city']['postal_code'];
+        $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
+        
         //shipping charges payment
         $rateRequest->RequestedShipment->ShippingChargesPayment->PaymentType = SimpleType\PaymentType::_SENDER;
 
