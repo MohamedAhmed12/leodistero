@@ -6,6 +6,7 @@ use App\Interfaces\ShippingAdapterInterface;
 use FedEx\RateService\Request;
 use FedEx\RateService\ComplexType;
 use FedEx\RateService\SimpleType;
+use stdClass;
 
 class Fedex implements ShippingAdapterInterface
 {
@@ -29,17 +30,17 @@ class Fedex implements ShippingAdapterInterface
 
         $rateRequest->ReturnTransitAndCommit = true;
 
-        //shipper
-        $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
-        // $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
-        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital_city']['name'];
-        // $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
-        
-        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital_city']['postal_code'];
-        // $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
-        $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
+        // //shipper
+        // $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
+        // // $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
+        // $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital_city']['name'];
+        // // $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
 
-        //recipient
+        // $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital_city']['postal_code'];
+        // // $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
+        // $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
+
+        // //recipient
         // $rateRequest->RequestedShipment->Recipient->Address->StreetLines = ['13450 Farmcrest Ct'];
         $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital_city']['name'];
         // $rateRequest->RequestedShipment->Recipient->Address->City = 'Herndon';
@@ -47,6 +48,14 @@ class Fedex implements ShippingAdapterInterface
         // $rateRequest->RequestedShipment->Recipient->Address->StateOrProvinceCode = 'VA';
         $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
         // dd( $rateRequest->RequestedShipment->Recipient->Address);
+
+        //shipper
+        $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
+        $rateRequest->RequestedShipment->Shipper->Address->StreetLines = ['10 Fed Ex Pkwy'];
+        $rateRequest->RequestedShipment->Shipper->Address->City = 'Memphis';
+        $rateRequest->RequestedShipment->Shipper->Address->StateOrProvinceCode = 'TN';
+        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = 38115;
+        $rateRequest->RequestedShipment->Shipper->Address->CountryCode = 'US';
 
 
         //shipping charges payment
@@ -76,8 +85,6 @@ class Fedex implements ShippingAdapterInterface
 
         $res = [];
 
-        // dd($rateReply->RateReplyDetails);
-        // dd(22);
         if (!empty($rateReply->RateReplyDetails)) {
             foreach ($rateReply->RateReplyDetails as $rateReplyDetail) {
                 if (!empty($rateReplyDetail->RatedShipmentDetails)) {
@@ -91,9 +98,21 @@ class Fedex implements ShippingAdapterInterface
             }
         }
         
-        return([
-            'standard' => isset($res['FEDEX_GROUND']) && str_contains($res['FEDEX_GROUND'][0], ' ') ? explode(': ', $res['FEDEX_GROUND'][0])[1] : '',
-            'express' => isset($res['FEDEX_EXPRESS_SAVER']) && str_contains($res['FEDEX_EXPRESS_SAVER'][0], ' ') ? explode(': ', $res['FEDEX_EXPRESS_SAVER'][0])[1] : '',
-        ]);
+        $standard = new stdClass;
+        if (isset($res['INTERNATIONAL_ECONOMY']) && str_contains($res['INTERNATIONAL_ECONOMY'][0], ' ')) {
+            $standard->CurrencyCode = "USD";
+            $standard->Value = intval(explode(': ', $res['INTERNATIONAL_ECONOMY'][0])[1]);
+        }
+        
+        $express = new stdClass;
+        if (isset($res['INTERNATIONAL_PRIORITY']) && str_contains($res['INTERNATIONAL_PRIORITY'][0], ' ')) {
+            $express->CurrencyCode = "USD";
+            $express->Value = intval(explode(': ', $res['INTERNATIONAL_PRIORITY'][0])[1]);
+        }
+        
+        return [
+            'standard' => $standard,
+            'express' => $express
+        ];
     }
 }

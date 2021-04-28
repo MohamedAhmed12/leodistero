@@ -44,18 +44,16 @@ class Aramex implements ShippingAdapterInterface
 
         if (!isset($standard->error) && !isset($express->error)) {
             return [
-                $standard->TotalAmount,
-                $express->TotalAmount
+                'standard' => $standard->TotalAmount,
+                'express' => $express->TotalAmount
             ];
         } else {
-            $errors = [];
-            $errors += isset($standard->errors->Notification);
-            $errors += isset($express->errors->Notification);
-
-            $error = array_map(function ($notification) {
-                return $notification->Message;
-            }, $errors);
-            return $error;
+           if( isset($standard->errors->Notification) || isset($express->errors->Notification)) {
+            return [
+                'standard' => '',
+                'express' => ''
+            ];
+           }
         }
     }
 }
