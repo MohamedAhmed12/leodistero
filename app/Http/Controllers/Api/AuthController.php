@@ -155,11 +155,12 @@ class AuthController extends Controller
         } else {
             unset($data['password']);
         }
-        $data = Arr::where($data, function($val, $key) {
+        $data = Arr::where($data, function ($val, $key) {
             return !is_null($val);
         });
 
         $user->update($data);
+        $user->refresh();
 
         return $user;
     }
@@ -175,7 +176,7 @@ class AuthController extends Controller
     {
         $user = auth()->user();
         $userAttr = $user->attributesToArray();
-        
+
         if (
             empty($userAttr['country_id']) ||
             empty($userAttr['state_id']) ||
@@ -185,7 +186,7 @@ class AuthController extends Controller
         ) {
             return 0;
         }
-        
+
         return 1;
     }
 }
