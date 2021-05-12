@@ -1,14 +1,14 @@
 <?php
 
-use App\Http\Controllers\Api\AuthController;
-use App\Http\Controllers\Api\CityController;
-use App\Http\Controllers\Api\CountryController;
-use App\Http\Controllers\Api\StateController;
-use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\ImageController;
-use App\Http\Controllers\ShippingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CityController;
+use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\ImageController;
+use App\Http\Controllers\Api\StateController;
+use App\Http\Controllers\Api\CountryController;
+use App\Http\Controllers\Api\ShippingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,8 +39,12 @@ Route::prefix('auth')->group(function () {
     });
 });
 
+
+Route::prefix('shipping')->group(function() {
+    Route::post('rate', [ShippingController::class, 'calculateRate']);
+    Route::post('shipment', [ShippingController::class, 'createShipment']);
+});
 Route::resource('/countries', CountryController::class);
 Route::resource('/cities', CityController::class);
 Route::resource('/states', StateController::class);
-Route::post('/shipping/rate', [ShippingController::class, 'calculateRate']);
 Route::post('/image/upload', [ImageController::class, 'upload']);

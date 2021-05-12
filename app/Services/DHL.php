@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Mvdnbrk\Laravel\Facades\DhlParcel;
 use DHL\Client\Web as WebserviceClient;
 use App\Interfaces\ShippingAdapterInterface;
+use App\Http\Requests\CreateShipmentFormRequest;
 
 class DHL implements ShippingAdapterInterface
 {
@@ -54,4 +55,6 @@ class DHL implements ShippingAdapterInterface
 
         // $val= Http::dd()->get('api-mock.dhl.com/mydhlapi/rates');
     }
+    public function createShipment(array $requset)
+    {}
 }
