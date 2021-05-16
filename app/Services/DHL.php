@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use stdClass;
 use DHL\Datatype\GB\Piece;
 use DHL\Entity\GB\ShipmentRequest;
 use DHL\Datatype\GB\SpecialService;
@@ -14,47 +15,71 @@ use App\Http\Requests\CreateShipmentFormRequest;
 
 class DHL implements ShippingAdapterInterface
 {
-    private $DHLToken;
-
-    public function __construct()
-    {
-        // $res = Http::withHeaders([
-        //     'Authorization' => 'Basic QUdoNE5FcU1oZmhGclhtSDFsUGFtaHhkb0FtbldEV0c6MzhuYWVCOW5CQ294bWxYZA=='
-        // ])->get('https://api-sandbox.dhlecommerce.com/account/v1/auth/accesstoken');
-        // $this->DHLToken = $res['access_token'];
-    }
     public function calculateRate($data)
     {
-        // $volume = $data['length'] * $data['width'] * $data['height'];
-        // $totlaWeight = $volume * $data['weight'];
-        // $val = 0;
+        
+        $query = $this->setQuery([
+            'originCountryCode' => $data['from']['code'],
+            'originCityName' => $data['from']['default_state']['name'],
+            'destinationCountryCode' => $data['to']['code'],
+            'destinationCityName' => $data['to']['default_state']['name'],
+            'weight' => $data['weight'],
+            'length' => $data['length'],
+            'width' => $data['width'],
+            'height' => $data['height']
+        ]);
 
-        // if ($totlaWeight < 20) {
-        //     $val = '26';
-        // } elseif ($totlaWeight < 200) {
-        //     $val = '30';
-        // } elseif ($totlaWeight < 350) {
-        //     $val = '38';
-        // } elseif ($totlaWeight < 600) {
-        //     $val = '40';
-        // } elseif ($totlaWeight < 1450) {
-        //     $val = '45';
-        // } elseif ($totlaWeight < 1450) {
-        //     $val = '45';
-        // } else {
-        //     $val = strval(($data['weight'] * 1.5) + $volume);
-        // }
+        $res = Http::withHeaders([
+            'content-type' => 'application/json',
+            'Authorization' => 'Basic bGVvZGlzdHJvMlVTOkleMHdDXjljQyQweg=='
+        ])
+        ->get('https://express.api.dhl.com/mydhlapi/test/rates', $query);
 
-        // return [
-        //     "currency" => "USD",
-        //     "value" => $val
-        // ];
+        $res = $res->json();
 
+        $standard = new stdClass;
+        $express = new stdClass;
 
-        // dd(Http::get('https://jsonplaceholder.typicode.com/todos/1'));
+        if (isset($res['products'])) {
+            $rates = $res['products'];
+            foreach ($rates as $rate) {
+                if (isset($rate['productName']) && $rate['productName'] == 'EXPRESS EASY DOC') {
+                    $express->CurrencyCode = $rate['totalPrice'][0]['priceCurrency'];
+                    $express->Value = $rate['totalPrice'][0]['price'];
+                }
+                if (isset($rate['productName']) && $rate['productName'] == 'EXPRESS WORLDWIDE DOC') {
+                    $standard->CurrencyCode = $rate['totalPrice'][0]['priceCurrency'];
+                    $standard->Value = $rate['totalPrice'][0]['price'];
+                }
+            }
+        }
 
-        // $val= Http::dd()->get('api-mock.dhl.com/mydhlapi/rates');
+        return [
+            'standard' => $standard,
+            'express' => $express
+        ];
     }
+    
     public function createShipment(array $requset)
-    {}
+    {
+    }
+
+
+    public function setQuery(array $query)
+    {
+        return [
+            'accountNumber' => '849491959',
+            'originCountryCode' => $query['originCountryCode'],
+            'originCityName' => $query['originCityName'],
+            'destinationCountryCode' => $query['destinationCountryCode'],
+            'destinationCityName' => $query['destinationCityName'],
+            'weight' => $query['weight'],
+            'length' => $query['length'],
+            'width' => $query['width'],
+            'height' => $query['height'],
+            'plannedShippingDate' => now()->addDays(5)->toDateString(),
+            'isCustomsDeclarable' => 'false',
+            'unitOfMeasurement' => 'imperial'
+        ];
+    }
 }

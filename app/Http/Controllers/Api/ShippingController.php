@@ -33,7 +33,7 @@ class ShippingController extends Controller
         $data['to'] = Country::with('defaultState')->findOrFail($data['to'])->ToArray();
 
         $rate = [
-            // 'dhl' => $this->dhl->calculateRate($data),
+            'dhl' => $this->dhl->calculateRate($data),
             'fedex' => $this->fedex->calculateRate($data),
             'aramex' => $this->aramex->calculateRate($data),
         ];
@@ -47,8 +47,8 @@ class ShippingController extends Controller
   
         $shipmentDetails = [
             // 'dhl' => $this->dhl->createShipment($data),
-            // 'fedex' => $this->fedex->createShipment($data),
-            'aramex' => $this->aramex->createShipment($data),
+            'fedex' => $this->fedex->createShipment($data),
+            // 'aramex' => $this->aramex->createShipment($data),
         ];
 
         return response()->json($shipmentDetails);
