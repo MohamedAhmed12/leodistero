@@ -41,16 +41,10 @@ class ShippingController extends Controller
         return response()->json($rate);
     }
 
-    public function createShipment(CreateShipmentFormRequest $request)
+    public function createShipment(CreateShipmentFormRequest $request,  $shippingProvider)
     {
-        $data = $request->validated();
-  
-        $shipmentDetails = [
-            // 'dhl' => $this->dhl->createShipment($data),
-            'fedex' => $this->fedex->createShipment($data),
-            // 'aramex' => $this->aramex->createShipment($data),
-        ];
+        $data = $request->validated();    
 
-        return response()->json($shipmentDetails);
+        return response()->json(app($shippingProvider)->createShipment($data));
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use stdClass;
 use Carbon\Traits\Date;
 use Illuminate\Support\Facades\Storage;
 use Octw\Aramex\Aramex as AramexProvider;
@@ -41,22 +42,22 @@ class Aramex implements ShippingAdapterInterface
         $shipmentDetailsEXP = $shipmentDetailsStandard;
         $shipmentDetailsEXP['product_type'] = 'PPX';
 
-        $standard = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsStandard, $currency);
-        $express = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsEXP, $currency);
+        $standardResponse = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsStandard, $currency);
+        $expressResponse = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsEXP, $currency);
 
-        if (!isset($standard->error) && !isset($express->error)) {
-            return [
-                'standard' => $standard->TotalAmount,
-                'express' => $express->TotalAmount
-            ];
-        } else {
-            if (isset($standard->errors->Notification) || isset($express->errors->Notification)) {
-                return [
-                    'standard' => '',
-                    'express' => ''
-                ];
-            }
+        $standard = new stdClass;
+        $express = new stdClass;
+        if (!isset($standardResponse->error) && isset($standardResponse->TotalAmount)) {
+            $standard = $standardResponse->TotalAmount;
         }
+        if (!isset($expressResponse->error) && isset($expressResponse->TotalAmount)) {
+            $express = $expressResponse->TotalAmount;
+        }
+
+        return [
+            'standard' => $standard,
+            'express' => $express
+        ];
     }
 
 
@@ -87,7 +88,6 @@ class Aramex implements ShippingAdapterInterface
                 'line2' => $data['ship_to']['adress_line'],
                 // 'line1' => 'Line1 Details',
             ],
-
             'shipping_date_time' => strtotime($data['package']['shipping_date_time']),
             'due_date' => strtotime($data['package']['due_date']),
             'comments' => '',
@@ -98,9 +98,12 @@ class Aramex implements ShippingAdapterInterface
             'width' => $data['package']['width'],
             'height' => $data['package']['height'],
             'number_of_pieces' => 1,
+            'product_type' => $data['package']['shipment_type'] == 'standard' ? 'DPX' : 'PPX',
             'customs_value_amount' => $data['package']['value'], //optional (required for express shipping)
             'description' => $data['description'] ?? '',
         ]);
+
+
         if (empty($callResponse->error)) {
             $imageURL = $callResponse->Shipments->ProcessedShipment->ShipmentLabel->LabelURL;
             $image = file_get_contents($imageURL);
@@ -117,10 +120,12 @@ class Aramex implements ShippingAdapterInterface
                 'shipmentId' => $shipmentId
             ];
         } else {
-            // foreach ($callResponse->errors as $errorObject) {
-            //     dd(22, $errorObject);
-            //     handleError($errorObject->Code, $errorObject->Message);
-            // }
+            array_map(
+                function ($err) {
+                    throw new \Exception($err->Message);
+                },
+                $callResponse->errors
+            );
         }
     }
 }

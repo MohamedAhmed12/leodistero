@@ -60,8 +60,29 @@ class DHL implements ShippingAdapterInterface
         ];
     }
     
-    public function createShipment(array $requset)
+    public function createShipment(array $data)
     {
+        $query = $this->setQuery([
+            'originCountryCode' => $data['ship_from']['code'],
+            'originCityName' => $data['ship_from']['default_state']['name'],
+            'destinationCountryCode' => $data['ship_to']['code'],
+            'destinationCityName' => $data['ship_to']['default_state']['name'],
+            'weight' => $data['weight'],
+            'length' => $data['length'],
+            'width' => $data['width'],
+            'height' => $data['height']
+        ]);
+
+         
+        
+        $res = Http::withHeaders([
+            'accept' => 'application/json',
+            'content-type' => 'application/json',
+            'Authorization' => 'Basic bGVvZGlzdHJvMlVTOkleMHdDXjljQyQweg=='
+        ])
+        ->post('https://express.api.dhl.com/mydhlapi/test/shipments', $query);
+
+        $res = $res->json();
     }
 
 

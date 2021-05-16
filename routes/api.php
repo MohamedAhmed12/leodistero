@@ -42,7 +42,7 @@ Route::prefix('auth')->group(function () {
 
 Route::prefix('shipping')->group(function() {
     Route::post('rate', [ShippingController::class, 'calculateRate']);
-    Route::post('shipment', [ShippingController::class, 'createShipment']);
+    Route::post('shipment/{shippingProvider}', [ShippingController::class, 'createShipment']);
 });
 Route::resource('/countries', CountryController::class);
 Route::resource('/cities', CityController::class);
