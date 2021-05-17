@@ -120,12 +120,9 @@ class Aramex implements ShippingAdapterInterface
                 'shipmentId' => $shipmentId
             ];
         } else {
-            array_map(
-                function ($err) {
-                    throw new \Exception($err->Message);
-                },
-                $callResponse->errors
-            );
+            return [
+                'errorMsg' => $callResponse->errors ? $callResponse->errors[0]->Message : ''
+            ];
         }
     }
 }

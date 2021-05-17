@@ -41,7 +41,8 @@ class CreateShipmentFormRequest extends FormRequest
             "package.pickup_location" => ['required', 'string'],
             "package.quantity" => ["required", "numeric"],
             "package.description" => ["required", "string"],
-            "package.shipping_date_time" => ['required', 'date','before_or_equal:' . now()->addDays(4)->toDateString()],
+            // "package.shipping_date_time" => ['required', 'date','before_or_equal:' . now()->addDays(4)->toDateString()],
+            "package.shipping_date_time" => ['required', 'string'],
             "package.due_date" => ['required', 'date', 'before_or_equal:' . now()->addDays(45)->toDateString()],
             "package.shipment_type" => ['required','in:standard,express']
         ];
