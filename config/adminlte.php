@@ -250,17 +250,17 @@ return [
             'url'  => '/users/create',
         ],
 
-        ['header' => 'Orders'],
-        [
-            'text' => 'List Orders',
-            'icon'    => 'fas fa-fw fa-share',
-            'url'  => '/orders',
-        ],
-        [
-            'text'    => 'Create Order',
-            'icon'    => 'fas fa-fw fa-share',
-            'url'     => '/orders/create',
-        ],
+        // ['header' => 'Orders'],
+        // [
+        //     'text' => 'List Orders',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'url'  => '/orders',
+        // ],
+        // [
+        //     'text'    => 'Create Order',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'url'     => '/orders/create',
+        // ],
         ['header' => 'Countries'],
         [
             'text' => 'List Countries',
@@ -284,17 +284,28 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'url'     => '/cities/create',
         ],
-        ['header' => 'States'],
+        ['header' => 'Shipments'],
         [
-            'text' => 'List States',
+            'text' => 'List Shipments',
             'icon'    => 'fas fa-fw fa-share',
-            'url'  => '/states',
+            'url'  => '/shipments',
         ],
         [
-            'text'    => 'Create State',
+            'text'    => 'Create Shipments',
             'icon'    => 'fas fa-fw fa-share',
-            'url'     => '/states/create',
+            'url'     => '/shipments/create',
         ],
+        // ['header' => 'States'],
+        // [
+        //     'text' => 'List States',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'url'  => '/states',
+        // ],
+        // [
+        //     'text'    => 'Create State',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'url'     => '/states/create',
+        // ],
         ['header' => 'Settings'],
         [
             'text' => 'Main Settings',
