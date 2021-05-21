@@ -50,6 +50,7 @@ class shipmentsDataTable extends DataTable
     {
         return $this->builder()
             ->setTableId('shipments-table')
+            ->setTableAttribute('class', 'w-100 table-responsive')
             ->columns($this->getColumns())
             ->minifiedAjax()
             ->dom('Bfrtip')
@@ -74,6 +75,30 @@ class shipmentsDataTable extends DataTable
             Column::make('provider'),
             Column::make('status'),
             Column::make('provider_status'),
+            Column::make('shipper_name'),
+            Column::make('shipper_email'),
+            Column::make('shipper_number'),
+            Column::make('shipper_country_id'),
+            Column::make('shipper_state_id'),
+            Column::make('shipper_adress_line'),
+            Column::make('shipper_zip_code'),
+            Column::make('recipient_name'),
+            Column::make('recipient_email'),
+            Column::make('recipient_number'),
+            Column::make('recipient_country_id'),
+            Column::make('recipient_state_id'),
+            Column::make('recipient_adress_line'),
+            Column::make('recipient_zip_code'),
+            Column::make('package_weight'),
+            Column::make('package_length'),
+            Column::make('package_width'),
+            Column::make('package_height'),
+            Column::make('package_quantity'),
+            Column::make('package_pickup_location'),
+            Column::make('package_description'),
+            Column::make('package_shipping_date_time'),
+            Column::make('package_due_date'),
+            Column::make('package_shipment_type'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')

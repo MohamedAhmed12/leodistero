@@ -90,34 +90,34 @@ class DHL implements ShippingAdapterInterface
             "customerDetails" => [
                 "shipperDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data['ship_from']['zip_code'],
-                        "cityName" =>  $data['ship_from']['state'],
-                        "countryCode" =>  $data['ship_from']['country']['code'],
-                        "provinceCode" => $data['ship_from']['country']['code'],
-                        "addressLine1" => $data['ship_from']['adress_line'],
+                        "postalCode" => $data['shipper']['zip_code'],
+                        "cityName" =>  $data['shipper']['state'],
+                        "countryCode" =>  $data['shipper']['country']['code'],
+                        "provinceCode" => $data['shipper']['country']['code'],
+                        "addressLine1" => $data['shipper']['adress_line'],
                     ],
                     "contactInformation" => [
-                        "email" =>  $data['ship_from']['email'],
-                        "phone" => $data['ship_from']['number'],
-                        "mobilePhone" => $data['ship_from']['number'],
+                        "email" =>  $data['shipper']['email'],
+                        "phone" => $data['shipper']['number'],
+                        "mobilePhone" => $data['shipper']['number'],
                         "companyName" => "Shipper Acne Co",
-                        "fullName" => $data['ship_from']['name']
+                        "fullName" => $data['shipper']['name']
                     ]
                 ],
                 "receiverDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data['ship_to']['zip_code'],
-                        "cityName" =>  $data['ship_to']['state'],
-                        "countryCode" =>  $data['ship_to']['country']['code'],
-                        "provinceCode" => $data['ship_to']['country']['code'],
-                        "addressLine1" => $data['ship_to']['adress_line'],
+                        "postalCode" => $data['recipient']['zip_code'],
+                        "cityName" =>  $data['recipient']['state'],
+                        "countryCode" =>  $data['recipient']['country']['code'],
+                        "provinceCode" => $data['recipient']['country']['code'],
+                        "addressLine1" => $data['recipient']['adress_line'],
                     ],
                     "contactInformation" => [
-                        "email" =>  $data['ship_to']['email'],
-                        "phone" => $data['ship_to']['number'],
-                        "mobilePhone" => $data['ship_to']['number'],
+                        "email" =>  $data['recipient']['email'],
+                        "phone" => $data['recipient']['number'],
+                        "mobilePhone" => $data['recipient']['number'],
                         "companyName" => "Shipper Acne Co",
-                        "fullName" => $data['ship_to']['name']
+                        "fullName" => $data['recipient']['name']
                     ]
                 ]
             ],

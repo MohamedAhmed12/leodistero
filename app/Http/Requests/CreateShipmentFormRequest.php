@@ -17,34 +17,34 @@ class CreateShipmentFormRequest extends FormRequest
     public function rules()
     {
         return [
-            "ship_from.name" => ["required", "string"],
-            "ship_from.email" => ["required", "email"],
-            "ship_from.number" => ["required", "numeric"],
-            "ship_from.country" => ["required", "exists:countries,id"],
-            "ship_from.state" => ["required", "exists:states,id"],
-            "ship_from.adress_line" => ["required", "string"],
-            "ship_from.zip_code" => ["required", "string"],
-            
-            "ship_to.name" => ["required", "string"],
-            "ship_to.email" => ["required", "email"],
-            "ship_to.number" => ["required", "numeric"],
-            "ship_to.country" => ["required", "exists:countries,id"],
-            "ship_to.state" => ["required", "exists:states,id"],
-            "ship_to.adress_line" => ["required", "string"],
-            "ship_to.zip_code" => ["required", "string"],
+            "shipper_name" => ["required", "string"],
+            "shipper_email" => ["required", "email"],
+            "shipper_number" => ["required", "numeric"],
+            "shipper_country_id" => ["required", "exists:countries,id"],
+            "shipper_state_id" => ["required", "exists:states,id"],
+            "shipper_adress_line" => ["required", "string"],
+            "shipper_zip_code" => ["required", "string"],
 
-            "package.weight" => ["required", "numeric"],
-            "package.length" => ["required", "numeric"],
-            "package.width" => ["required", "numeric"],
-            "package.height" => ["required", "numeric"],
-            "package.value" => ["required", "numeric"],
-            "package.pickup_location" => ['required', 'string'],
-            "package.quantity" => ["required", "numeric"],
-            "package.description" => ["required", "string"],
-            // "package.shipping_date_time" => ['required', 'date','before_or_equal:' . now()->addDays(4)->toDateString()],
-            "package.shipping_date_time" => ['required', 'string'],
-            "package.due_date" => ['required', 'date', 'before_or_equal:' . now()->addDays(45)->toDateString()],
-            "package.shipment_type" => ['required','in:standard,express']
+            "recipient_name" => ["required", "string"],
+            "recipient_email" => ["required", "email"],
+            "recipient_number" => ["required", "numeric"],
+            "recipient_country_id" => ["required", "exists:countries,id"],
+            "recipient_state_id" => ["required", "exists:states,id"],
+            "recipient_adress_line" => ["required", "string"],
+            "recipient_zip_code" => ["required", "string"],
+
+            "package_weight" => ["required", "numeric"],
+            "package_length" => ["required", "numeric"],
+            "package_width" => ["required", "numeric"],
+            "package_height" => ["required", "numeric"],
+            "package_value" => ["required", "numeric"],
+            "package_pickup_location" => ['required', 'string'],
+            "package_quantity" => ["required", "numeric"],
+            "package_description" => ["required", "string"],
+            // "package_shipping_date_time" => ['required', 'date','before_or_equal:' . now()->addDays(4)->toDateString()],
+            "package_shipping_date_time" => ['required', 'string'],
+            "package_due_date" => ['required', 'date', 'before_or_equal:' . now()->addDays(45)->toDateString()],
+            "package_shipment_type" => ['required', 'in:standard,express']
         ];
     }
 
@@ -57,11 +57,11 @@ class CreateShipmentFormRequest extends FormRequest
     {
         $validatedData = $this->validator->validated();
 
-        $validatedData['ship_from']['country'] = Country::find( $validatedData['ship_from']['country']);
-        $validatedData['ship_from']['state'] = $this->extractNameFromDB(State::class, $validatedData['ship_from']['state']);
-        $validatedData['ship_to']['country'] = Country::find($validatedData['ship_to']['country']);
-        $validatedData['ship_to']['state'] = $this->extractNameFromDB(State::class, $validatedData['ship_to']['state']);
-
+        // $validatedData['shipper_country'] = Country::find($validatedData['shipper_country']);
+        // // $validatedData['shipper_state'] = $this->extractNameFromDB(State::class, $validatedData['shipper_state']);
+        // // $validatedData['recipient_country'] = Country::find($validatedData['recipient_country']);
+        // $validatedData['recipient_state'] = $this->extractNameFromDB(State::class, $validatedData['recipient']['state']);
+        $validatedData['user_id'] = auth()->user()->id;
         return $validatedData;
     }
 

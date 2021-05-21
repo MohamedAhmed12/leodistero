@@ -11,6 +11,7 @@ use App\Services\Aramex;
 use Maatwebsite\Excel\Concerns\ToArray;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateShipmentFormRequest;
+use App\Models\Shipment;
 use DHL\Datatype\AM\Request;
 
 class ShippingController extends Controller
@@ -43,7 +44,15 @@ class ShippingController extends Controller
 
     public function createShipment(CreateShipmentFormRequest $request,  $shippingProvider)
     {
-        $data = $request->validated();    
+        $data = $request->validated();
+        $shipment = Shipment::create($data);
+        
+        return response()->json($shipment);
+    }
+
+    public function Ship(CreateShipmentFormRequest $request,  $shippingProvider)
+    {
+        $data = $request->validated();
 
         return response()->json(app($shippingProvider)->createShipment($data));
     }

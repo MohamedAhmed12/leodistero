@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\State;
+use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Shipment extends Model
 {
@@ -21,5 +23,25 @@ class Shipment extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+   
+    public function shipperCountry()
+    {
+        return $this->hasOne(Country::class, 'shipper_country_id', 'id');
+    }
+
+    public function shipperState()
+    {
+        return $this->hasOne(State::class, 'shipper_state_id', 'id');
+    }
+
+    public function recipientCountry()
+    {
+        return $this->hasOne(Country::class, 'recipient_country_id', 'id');
+    }
+
+    public function recipientState()
+    {
+        return $this->hasOne(State::class, 'recipient_state_id', 'id');
     }
 }
