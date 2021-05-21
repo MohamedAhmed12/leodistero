@@ -15,11 +15,13 @@ class Country extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
+    protected $guarded = [
+        'id',
+        'craeted_at',
+        'updated_at'
     ];
 
-    
+
     /**
      * accessor to get the default state.
      *
@@ -30,12 +32,13 @@ class Country extends Model
         return State::whereName($this->capital)->first() ?? $this->states->first();
     }
 
-    public function cities(){
+    public function cities()
+    {
         return $this->hasMany(City::class);
     }
-    
-    public function states(){
+
+    public function states()
+    {
         return $this->hasMany(State::class, 'country_id', 'id');
     }
-
 }

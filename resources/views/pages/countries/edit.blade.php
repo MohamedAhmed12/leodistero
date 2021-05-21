@@ -10,7 +10,7 @@
     <div class="card">
 
         <div class="card-header">
-            <h3>Edit User : {{ $country->name }}</h3>
+            <h3>Edit Countries : {{ $country->name }}</h3>
         </div>
 
         <div class="card-body">
@@ -20,6 +20,26 @@
                 @if($errors->has("name"))
                     <div class="alert alert-danger w-100 m-0" role="alert">
                         {{$errors->first("name")}}
+                    </div>
+                @endif
+            </div>
+            
+            <div class="form-group">
+                <label for="name">code</label>
+                <input type="text" name="code" value="{{ $country->code }}" class="form-control @error('code') is-invalid @enderror" id="code" placeholder="Code">
+                @if($errors->has("code"))
+                    <div class="alert alert-danger w-100 m-0" role="alert">
+                        {{$errors->first("code")}}
+                    </div>
+                @endif
+            </div>
+
+            <div class="form-group">
+                <label for="name">Capital</label>
+                <input type="text" name="capital" value="{{ $country->capital }}" class="form-control @error('capital') is-invalid @enderror" id="capital" placeholder="Capital">
+                @if($errors->has("capital"))
+                    <div class="alert alert-danger w-100 m-0" role="alert">
+                        {{$errors->first("capital")}}
                     </div>
                 @endif
             </div>

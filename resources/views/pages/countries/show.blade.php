@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Show User</h1>
+    <h1>Show Country</h1>
 @stop
 
 @section('content')
@@ -14,9 +14,20 @@
                 <th>Id</th>
                 <td>{{ $country->id }}</td>
             </tr>
+           
             <tr>
                 <th>Name</th>
                 <td>{{ $country->name }}</td>
+            </tr>
+
+            <tr>
+                <th>Code</th>
+                <td>{{ $country->code }}</td>
+            </tr>
+
+            <tr>
+                <th>Capital</th>
+                <td>{{ $country->capital }}</td>
             </tr>
 
             <tr>

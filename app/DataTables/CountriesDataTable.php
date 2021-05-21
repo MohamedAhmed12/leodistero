@@ -71,6 +71,8 @@ class CountriesDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
+            Column::make('code'),
+            Column::make('capital'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center')->width(150),

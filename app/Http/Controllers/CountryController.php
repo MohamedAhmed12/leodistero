@@ -37,11 +37,13 @@ class CountryController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+      $validated=  $request->validate([
             'name'         => ['required', 'unique:countries,name'],
+            'code'         => ['required', 'unique:countries,code'],
+            'capital'         => ['required', 'unique:countries,capital'],
         ]);
 
-        $country = Country::create($request->only(['name']));
+        $country = Country::create($validated);
 
         return redirect()->route('countries.show',$country->id);
     }
@@ -82,11 +84,13 @@ class CountryController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        $request->validate([
+      $validated=  $request->validate([
             'name'         => ['required', 'unique:countries,name,'.$country->id],
+            'code'         => ['required', 'unique:countries,code,' . $country->id],
+            'capital'         => ['required', 'unique:countries,capital,' . $country->id],
         ]);
-
-        $country->update($request->only(['name']));
+        
+        $country->update($validated);
 
         return redirect()->route('countries.show',$country->id);
 

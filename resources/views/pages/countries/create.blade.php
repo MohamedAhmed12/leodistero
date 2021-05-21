@@ -22,6 +22,24 @@
                     </div>
                 @endif
             </div>
+            <div class="form-group">
+                <label for="name">Code</label>
+                <input type="text" name="code" value="{{ old('code') }}" class="form-control @error('code') is-invalid @enderror" id="code" placeholder="Country Code">
+                @if($errors->has("code"))
+                    <div class="alert alert-danger w-100 m-0" role="alert">
+                        {{$errors->first("code")}}
+                    </div>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="name">Capital</label>
+                <input type="text" name="capital" value="{{ old('capital') }}" class="form-control @error('capital') is-invalid @enderror" id="capital" placeholder="Capital">
+                @if($errors->has("capital"))
+                    <div class="alert alert-danger w-100 m-0" role="alert">
+                        {{$errors->first("capital")}}
+                    </div>
+                @endif
+            </div>
         </div>
 
         <div class="card-footer">
