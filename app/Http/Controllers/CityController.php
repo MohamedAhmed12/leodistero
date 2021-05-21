@@ -27,7 +27,7 @@ class CityController extends Controller
      */
     public function create()
     {
-        return view('pages.cities.create',[
+        return view('pages.cities.create', [
             'countries'  =>  Country::all(),
         ]);
     }
@@ -40,14 +40,17 @@ class CityController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'name'         => ['required', 'unique:cities,name'],
-            'country_id'         => ['required', 'exists:countries,id'],
+            'country'         => ['required'],
         ]);
+        $validated['country_id'] = json_decode($validated['country'])->id;
+        $validated['country_code'] = json_decode($validated['country'])->code;
+        unset($validated['country']);
 
-        $city = City::create($request->only(['name','country_id']));
+        $city = City::create($validated);
 
-        return redirect()->route('cities.show',$city->id);
+        return redirect()->route('cities.show', $city->id);
     }
 
     /**
@@ -58,8 +61,8 @@ class CityController extends Controller
      */
     public function show(City $city)
     {
-        return view('pages.cities.show',[
-            'city'=>$city
+        return view('pages.cities.show', [
+            'city' => $city
         ]);
     }
 
@@ -72,7 +75,7 @@ class CityController extends Controller
     public function edit(City $city)
     {
 
-        return view('pages.cities.edit',[
+        return view('pages.cities.edit', [
             'city'       =>  $city,
             'countries'  =>  Country::all(),
         ]);
@@ -87,15 +90,17 @@ class CityController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        $request->validate([
-            'name'         => ['required', 'unique:cities,name,'.$city->id],
-            'country_id'         => ['required', 'exists:countries,id'],
+        $validated = $request->validate([
+            'name'         => ['required', 'unique:cities,name,' . $city->id],
+            'country'         => ['required'],
         ]);
+        $validated['country_id'] = json_decode($validated['country'])->id;
+        $validated['country_code'] = json_decode($validated['country'])->code;
+        unset($validated['country']);
 
-        $city->update($request->only(['name','country_id']));
+        $city->update($validated);
 
-        return redirect()->route('cities.show',$city->id);
-
+        return redirect()->route('cities.show', $city->id);
     }
 
     /**
@@ -106,11 +111,12 @@ class CityController extends Controller
      */
     public function destroy(City $city)
     {
-        try{
+        try {
             // $views = View::where(['post_id'=>$city->id,'type'=>'post'])->first();
             // $views->delete();
             $city->delete();
-        }catch(\Exception $ex){}
+        } catch (\Exception $ex) {
+        }
 
         return redirect()->route('cities.index');
     }

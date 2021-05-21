@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Show User</h1>
+    <h1>Show City</h1>
 @stop
 
 @section('content')
@@ -22,6 +22,11 @@
             <tr>
                 <th>Country</th>
                 <td>{{ $city->country->name }}</td>
+            </tr>
+
+            <tr>
+                <th>Postal Code</th>
+                <td>{{ $city->postal_code }}</td>
             </tr>
 
             <tr>

@@ -26,10 +26,10 @@ class Country extends Model
      *
      * @var array
      */
-    public function getCapitalAttribute()
-    {
-        return City::whereName($this->capital)->first() ?? $this->cities->first();
-    }
+    // public function getCapitalAttribute()
+    // {
+    //     return City::whereName($this->capital)->first() ?? $this->cities->first();
+    // }
 
     public function cities()
     {

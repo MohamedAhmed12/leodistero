@@ -10,13 +10,13 @@
     <div class="card">
 
         <div class="card-header">
-            <h3>Edit User : {{ $city->name }}</h3>
+            <h3>Edit City : {{ $city->name }}</h3>
         </div>
 
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Name</label>
-                <input type="text" name="name" value="{{ $city->name }}" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Username">
+                <input type="text" name="name" value="{{ $city->name }}" class="form-control @error('name') is-invalid @enderror" id="name" placeholder="Name">
                 @if($errors->has("name"))
                     <div class="alert alert-danger w-100 m-0" role="alert">
                         {{$errors->first("name")}}
@@ -24,16 +24,16 @@
                 @endif
             </div>
             <div class="form-group">
-                <label for="country_id">Country</label>
-                <select class="form-control" name="country_id">
+                <label for="country">Country</label>
+                <select class="form-control" name="country" placeholder="Country">
                     <option></option>
                     @foreach ($countries as $country)
-                        <option value="{{ $country->id }}" {{ $country->id == $city->country_id ? 'selected' : '' }}>{{ $country->name }}}</option>
+                        <option value="{{ $country }}" {{ $country->id == $city->country_id ? 'selected' : '' }}>{{ $country->name }}</option>
                     @endforeach
                 </select>
-                @if($errors->has("country_id"))
+                @if($errors->has("country"))
                     <div class="alert alert-danger w-100 m-0" role="alert">
-                        {{$errors->first("country_id")}}
+                        {{$errors->first("country")}}
                     </div>
                 @endif
             </div>
