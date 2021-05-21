@@ -8,7 +8,6 @@ use App\DataTables\UsersDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Country;
-use App\Models\State;
 use Illuminate\Support\Facades\Hash;
 
 class UsersController extends Controller
@@ -32,12 +31,10 @@ class UsersController extends Controller
     {
         $countries = Country::all();
         $cities = City::all();
-        $states = State::all();
 
         return view('pages.users.create',[
             'countries'=>$countries,
             'cities'=>$cities,
-            'states'=>$states,
         ]);
     }
 
@@ -59,7 +56,6 @@ class UsersController extends Controller
             'company'        =>  ['nullable','string'],
             'country_id'     =>  ['nullable','exists:countries,id'],
             'city_id'        =>  ['nullable','exists:cities,id'],
-            'state_id'       =>  ['nullable','exists:states,id'],
             'id_front'       =>  ['nullable','image'],
             'id_back'        =>  ['nullable','image'],
         ]);
@@ -74,7 +70,6 @@ class UsersController extends Controller
         $user->company = $request->company;
         $user->country_id = $request->country_id;
         $user->city_id = $request->city_id;
-        $user->state_id = $request->state_id;
         $user->zip_code = $request->zip_code;
 
 
@@ -114,13 +109,11 @@ class UsersController extends Controller
     {
         $countries = Country::all();
         $cities = City::all();
-        $states = State::all();
 
         return view('pages.users.edit',[
             'user'=>$user,
             'countries'=>$countries,
             'cities'=>$cities,
-            'states'=>$states,
         ]);
     }
 
@@ -143,7 +136,6 @@ class UsersController extends Controller
             'company'        => ['nullable','string'],
             'country_id'     => ['nullable','exists:countries,id'],
             'city_id'        => ['nullable','exists:cities,id'],
-            'state_id'       => ['nullable','exists:states,id'],
             'zip_code'       => ['nullable','max:10'],
             'id_front'       => ['nullable','image'],
             'id_back'        => ['nullable','image'],
@@ -157,7 +149,6 @@ class UsersController extends Controller
         $user->company = $request->company;
         $user->country_id = $request->country_id;
         $user->city_id = $request->city_id;
-        $user->state_id = $request->state_id;
         $user->zip_code = $request->zip_code;
 
         if($request->has('password') && $request->get('password',false) == true){

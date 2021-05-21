@@ -295,17 +295,6 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'url'     => '/shipments/create',
         ],
-        // ['header' => 'States'],
-        // [
-        //     'text' => 'List States',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'url'  => '/states',
-        // ],
-        // [
-        //     'text'    => 'Create State',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'url'     => '/states/create',
-        // ],
         ['header' => 'Settings'],
         [
             'text' => 'Main Settings',

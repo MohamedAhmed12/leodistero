@@ -41,13 +41,13 @@ class Fedex implements ShippingAdapterInterface
 
         //shipper
         $rateRequest->RequestedShipment->PreferredCurrency = 'USD';
-        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['default_state']['name'];
-        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['default_state']['postal_code'];
+        $rateRequest->RequestedShipment->Shipper->Address->City = $data['from']['capital']['name'];
+        $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital']['postal_code'];
         $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
 
         // //recipient
-        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['default_state']['name'];
-        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['default_state']['postal_code'];
+        $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital']['name'];
+        $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['capital']['postal_code'];
         $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
 
         //shipping charges payment

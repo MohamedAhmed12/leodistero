@@ -22,11 +22,6 @@ class CityController extends Controller
         if($request->query('country') != null){
             $countries->with('country');
         }
-
-        if($request->query('states') != null){
-            $countries->with('states');
-        }
-
         $countries = $countries->get();
 
         return new CityCollection($countries);
@@ -43,11 +38,6 @@ class CityController extends Controller
         if($request->query('country') != null){
             $country->load('country');
         }
-
-        if($request->query('states') != null){
-            $country->load('states');
-        }
-
         return new CityResource($country);
     }
 }

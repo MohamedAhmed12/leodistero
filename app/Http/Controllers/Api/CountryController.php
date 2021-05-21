@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Http\Resources\Country\Country as CountryResource;
-use App\Http\Resources\Country\CountryCollection;
 use App\Models\Country;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
+use App\Http\Resources\Country\CountryCollection;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Http\Resources\Country\Country as CountryResource;
 
 class CountryController extends Controller
 {
@@ -18,7 +19,7 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $countries = Country::whereHas('states', function (Builder $query) {
+        $countries = Country::whereHas('cities', function (Builder $query) {
             $query->whereNotNull('postal_code');
         })->get();
 
@@ -33,7 +34,11 @@ class CountryController extends Controller
      */
     public function show(Request $request, Country $country)
     {
-        $country->load('states');
+        $country->load([
+            'cities' => function (HasMany $query) {
+                $query->whereNotNull('postal_code')->get();
+            }
+        ]);
 
         return new CountryResource($country);
     }

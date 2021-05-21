@@ -14,9 +14,10 @@ class City extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-        'country_id',
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at',
     ];
 
     /**
@@ -28,14 +29,8 @@ class City extends Model
         'country_id' => 'integer',
     ];
 
-
-
-    public function country(){
+    public function country()
+    {
         return $this->belongsTo(Country::class);
-    }
-
-
-    public function states(){
-        return $this->hasMany(State::class);
     }
 }

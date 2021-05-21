@@ -21,7 +21,7 @@ class UpdateProfileFormRequest extends FormRequest
             'avatar' => ['nullable', 'string'], // max size is 2048 KB
             'official_id' => ['nullable', 'string'], // max size is 2048 KB
             'country_id' => ['nullable', 'exists:countries,id'],
-            'state_id' => ['nullable', 'exists:states,id'],
+            'city_id' => ['nullable', 'exists:cities,id'],
             'address_line_1' => ['nullable', 'max:32', 'string'],
             'zip_code' => ['nullable', 'string'],
         ];

@@ -54,11 +54,6 @@ class User extends Authenticatable implements HasMedia, MustVerifyEmail
         return $this->belongsTo(City::class);
     }
 
-    public function state(){
-        return $this->belongsTo(State::class);
-    }
-
-
     protected static function booted()
     {
         static::addGlobalScope(new UserLocation);

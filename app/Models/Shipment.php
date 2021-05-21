@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\State;
+use App\Models\City;
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,9 +30,9 @@ class Shipment extends Model
         return $this->hasOne(Country::class, 'shipper_country_id', 'id');
     }
 
-    public function shipperState()
+    public function shipperCity()
     {
-        return $this->hasOne(State::class, 'shipper_state_id', 'id');
+        return $this->hasOne(City::class, 'shipper_city_id', 'id');
     }
 
     public function recipientCountry()
@@ -40,8 +40,8 @@ class Shipment extends Model
         return $this->hasOne(Country::class, 'recipient_country_id', 'id');
     }
 
-    public function recipientState()
+    public function recipientCity()
     {
-        return $this->hasOne(State::class, 'recipient_state_id', 'id');
+        return $this->hasOne(City::class, 'recipient_city_id', 'id');
     }
 }

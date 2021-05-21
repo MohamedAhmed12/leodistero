@@ -27,7 +27,6 @@ class CreateUsersTable extends Migration
 
             $table->foreignId('country_id')->nullable();
             $table->foreignId('city_id')->nullable();
-            $table->foreignId('state_id')->nullable();
 
             $table->string('zip_code')->nullable();
 

@@ -179,7 +179,6 @@ class AuthController extends Controller
 
         if (
             empty($userAttr['country_id']) ||
-            empty($userAttr['state_id']) ||
             empty($userAttr['address_line_1']) ||
             empty($userAttr['official_id']) ||
             empty($userAttr['zip_code'])

@@ -30,8 +30,8 @@ class ShippingController extends Controller
     public function calculateRate()
     {
         $data = request()->all();
-        $data['from'] = Country::with('defaultState')->findOrFail($data['from'])->toArray();
-        $data['to'] = Country::with('defaultState')->findOrFail($data['to'])->ToArray();
+        $data['from'] = Country::with('capital')->findOrFail($data['from'])->toArray();
+        $data['to'] = Country::with('capital')->findOrFail($data['to'])->ToArray();
 
         $rate = [
             'dhl' => $this->dhl->calculateRate($data),

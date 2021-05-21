@@ -23,9 +23,9 @@ class DHL implements ShippingAdapterInterface
 
         $query = $this->setQuery([
             'originCountryCode' => $data['from']['code'],
-            'originCityName' => $data['from']['default_state']['name'],
+            'originCityName' => $data['from']['capital']['name'],
             'destinationCountryCode' => $data['to']['code'],
-            'destinationCityName' => $data['to']['default_state']['name'],
+            'destinationCityName' => $data['to']['capital']['name'],
             'weight' => $data['weight'],
             'length' => $data['length'],
             'width' => $data['width'],
@@ -91,7 +91,7 @@ class DHL implements ShippingAdapterInterface
                 "shipperDetails" => [
                     "postalAddress" => [
                         "postalCode" => $data['shipper']['zip_code'],
-                        "cityName" =>  $data['shipper']['state'],
+                        "cityName" =>  $data['shipper']['city'],
                         "countryCode" =>  $data['shipper']['country']['code'],
                         "provinceCode" => $data['shipper']['country']['code'],
                         "addressLine1" => $data['shipper']['adress_line'],
@@ -107,7 +107,7 @@ class DHL implements ShippingAdapterInterface
                 "receiverDetails" => [
                     "postalAddress" => [
                         "postalCode" => $data['recipient']['zip_code'],
-                        "cityName" =>  $data['recipient']['state'],
+                        "cityName" =>  $data['recipient']['city'],
                         "countryCode" =>  $data['recipient']['country']['code'],
                         "provinceCode" => $data['recipient']['country']['code'],
                         "addressLine1" => $data['recipient']['adress_line'],

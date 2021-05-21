@@ -36,7 +36,7 @@ class CitiesDataTable extends DataTable
      */
     public function query(City $model)
     {
-        return $model->with(['country'])->newQuery();
+        return $model->with(['city'])->newQuery();
     }
 
     /**
@@ -71,7 +71,7 @@ class CitiesDataTable extends DataTable
         return [
             Column::make('id'),
             Column::make('name'),
-            Column::make('country.name','country.name')->title('Country'),
+            Column::make('city.name','city.name')->title('Country'),
             Column::make('created_at'),
             Column::make('updated_at'),
             Column::computed('action')->exportable(false)->printable(false)->width(60)->addClass('text-center')->width(150),

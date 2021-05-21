@@ -11,6 +11,6 @@ class UserLocation implements Scope
 {
     public function apply(Builder $builder, Model $model)
     {
-        $builder->with(['state', 'country']);
+        $builder->with(['city', 'country']);
     }
 }

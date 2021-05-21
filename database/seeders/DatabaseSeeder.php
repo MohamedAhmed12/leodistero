@@ -2,11 +2,8 @@
 
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Hash;
-use Database\Seeders\CitiesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,7 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             CountriesTableSeeder::class,
-            StatesTableSeeder::class,
+            CitiesTableSeeder::class,
         ]);
     }
 }

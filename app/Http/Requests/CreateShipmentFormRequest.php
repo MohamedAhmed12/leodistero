@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\State;
 use App\Models\Country;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Http\FormRequest;
@@ -21,7 +20,7 @@ class CreateShipmentFormRequest extends FormRequest
             "shipper_email" => ["required", "email"],
             "shipper_number" => ["required", "numeric"],
             "shipper_country_id" => ["required", "exists:countries,id"],
-            "shipper_state_id" => ["required", "exists:states,id"],
+            "shipper_city_id" => ["required", "exists:cities,id"],
             "shipper_adress_line" => ["required", "string"],
             "shipper_zip_code" => ["required", "string"],
 
@@ -29,7 +28,7 @@ class CreateShipmentFormRequest extends FormRequest
             "recipient_email" => ["required", "email"],
             "recipient_number" => ["required", "numeric"],
             "recipient_country_id" => ["required", "exists:countries,id"],
-            "recipient_state_id" => ["required", "exists:states,id"],
+            "recipient_city_id" => ["required", "exists:cities,id"],
             "recipient_adress_line" => ["required", "string"],
             "recipient_zip_code" => ["required", "string"],
 

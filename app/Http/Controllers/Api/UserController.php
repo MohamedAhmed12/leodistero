@@ -42,7 +42,6 @@ class UserController extends Controller
             'company'        =>  ['nullable', 'string'],
             'country_id'     =>  ['nullable', 'exists:countries,id'],
             'city_id'        =>  ['nullable', 'exists:cities,id'],
-            'state_id'       =>  ['nullable', 'exists:states,id'],
             'id_front'       =>  ['nullable', 'image'],
             'id_back'        =>  ['nullable', 'image'],
         ]);

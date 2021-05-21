@@ -15,16 +15,16 @@ class Aramex implements ShippingAdapterInterface
     {
         $originAddress = [
             'line1' => 'Test string',
-            'city' => $data['from']['default_state']['name'],
+            'city' => $data['from']['capital']['name'],
             'country_code' => $data['from']['code'],
-            'postal_code' => $data['from']['default_state']['postal_code']
+            'postal_code' => $data['from']['capital']['postal_code']
         ];
 
         $destinationAddress = [
             'line1' => 'Test String',
-            'city' => $data['to']['default_state']['name'],
+            'city' => $data['to']['capital']['name'],
             'country_code' => $data['to']['code'],
-            'postal_code' => $data['to']['default_state']['postal_code']
+            'postal_code' => $data['to']['capital']['postal_code']
         ];
 
         $currency = 'USD';
@@ -70,7 +70,7 @@ class Aramex implements ShippingAdapterInterface
                 'phone'      => $data['shipper']['number'],
                 'cell_phone' => $data['shipper']['number'],
                 'country_code' => $data['shipper']['country']['code'],
-                'city' => $data['shipper']['state'],
+                'city' => $data['shipper']['city'],
                 'zip_code' => $data['shipper']['zip_code'],
                 'line1' => $data['shipper']['adress_line'],
                 'line2' => $data['shipper']['adress_line'],
@@ -82,7 +82,7 @@ class Aramex implements ShippingAdapterInterface
                 'phone' => $data['recipient']['number'],
                 'cell_phone' => $data['recipient']['number'],
                 'country_code' => $data['recipient']['country']['code'],
-                'city' => $data['recipient']['state'],
+                'city' => $data['recipient']['city'],
                 'zip_code' => $data['recipient']['zip_code'],
                 'line1' => $data['recipient']['adress_line'],
                 'line2' => $data['recipient']['adress_line'],

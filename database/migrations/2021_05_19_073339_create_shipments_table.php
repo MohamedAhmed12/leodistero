@@ -41,14 +41,14 @@ class CreateShipmentsTable extends Migration
         //     $table->string('shipper_email');
         //     $table->string('shipper_number');
         //     $table->unsignedBigInteger('shipper_country_id');
-        //     $table->unsignedBigInteger('shipper_state_id');
+        //     $table->unsignedBigInteger('shipper_city_id');
         //     $table->string('shipper_adress_line');
         //     $table->string('shipper_zip_code');
         //     $table->string('recipient_name');
         //     $table->string('recipient_email');
         //     $table->string('recipient_number');
         //     $table->unsignedBigInteger('recipient_country_id');
-        //     $table->unsignedBigInteger('recipient_state_id');
+        //     $table->unsignedBigInteger('recipient_city_id');
         //     $table->string('recipient_adress_line');
         //     $table->string('recipient_zip_code');
         //     $table->string('package_weight');
@@ -65,9 +65,9 @@ class CreateShipmentsTable extends Migration
 
         //     $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         //     $table->foreign('shipper_country_id')->references('id')->on('countries')->onDelete('cascade');
-        //     $table->foreign('shipper_state_id')->references('id')->on('states')->onDelete('cascade');
+        //     $table->foreign('shipper_city_id')->references('id')->on('cities')->onDelete('cascade');
         //     $table->foreign('recipient_country_id')->references('id')->on('countries')->onDelete('cascade');
-        //     $table->foreign('recipient_state_id')->references('id')->on('states')->onDelete('cascade');
+        //     $table->foreign('recipient_city_id')->references('id')->on('cities')->onDelete('cascade');
         // });
     }
 

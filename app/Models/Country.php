@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\State;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -23,22 +22,17 @@ class Country extends Model
 
 
     /**
-     * accessor to get the default state.
+     * accessor to get the default city.
      *
      * @var array
      */
-    public function getDefaultStateAttribute()
+    public function getCapitalAttribute()
     {
-        return State::whereName($this->capital)->first() ?? $this->states->first();
+        return City::whereName($this->capital)->first() ?? $this->cities->first();
     }
 
     public function cities()
     {
-        return $this->hasMany(City::class);
-    }
-
-    public function states()
-    {
-        return $this->hasMany(State::class, 'country_id', 'id');
+        return $this->hasMany(City::class, 'country_id', 'id');
     }
 }

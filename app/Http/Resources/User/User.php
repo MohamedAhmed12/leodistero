@@ -25,7 +25,6 @@ class User extends JsonResource
             'address_line_2'  =>   $this->address_line_2,
             'country_id'      =>   $this->country_id,
             'city_id'         =>   $this->city_id,
-            'state_id'        =>   $this->state_id,
 
             'zip_code'        =>   $this->zip_code,
 
@@ -37,7 +36,6 @@ class User extends JsonResource
 
             'country'         =>   new Country($this->country),
             'city'            =>   new Country($this->city),
-            'state'           =>   new Country($this->state),
         ];
     }
 }
