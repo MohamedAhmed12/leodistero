@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\Country\Country as CountryResource;
 use App\Http\Resources\Country\CountryCollection;
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -17,17 +18,9 @@ class CountryController extends Controller
      */
     public function index(Request $request)
     {
-        $countries = Country::query();
-
-        if($request->query('cities') != null){
-            $countries->with('cities');
-        }
-
-        if($request->query('states') != null){
-            $countries->with('cities.states');
-        }
-
-        $countries = $countries->get();
+        $countries = Country::whereHas('states', function (Builder $query) {
+            $query->whereNotNull('postal_code');
+        })->get();
 
         return new CountryCollection($countries);
     }
@@ -40,13 +33,7 @@ class CountryController extends Controller
      */
     public function show(Request $request, Country $country)
     {
-        if($request->query('cities') != null){
-            $country->load('cities');
-        }
-
-        if($request->query('states') != null){
-            $country->load('cities.states');
-        }
+        $country->load('states');
 
         return new CountryResource($country);
     }

@@ -16,13 +16,18 @@ class CreateStatesTable extends Migration
         Schema::create('states', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('postal_code');
+            $table->string('postal_code')->nullable();
             $table->foreignId('country_id');
+            $table->string('country_code');
+            $table->string('fips_code')->nullable();
+            $table->string('iso2')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->longText('flag')->nullable();
+            $table->longText('wikiDataId')->nullable();
             $table->timestamps();
-        });
-
-        Schema::table('countries', function (Blueprint $table) {
-            $table->foreign('capital_id')->references('id')->on('countries')->onDelete('cascade');
+            
+            $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
         });
     }
 

@@ -19,12 +19,23 @@ class Country extends Model
         'name',
     ];
 
+    
+    /**
+     * accessor to get the default state.
+     *
+     * @var array
+     */
+    public function getDefaultStateAttribute()
+    {
+        return State::whereName($this->capital)->first() ?? $this->states->first();
+    }
+
     public function cities(){
         return $this->hasMany(City::class);
     }
     
-    public function defaultState(){
-        return $this->hasOne(State::class, 'id', 'capital_id');
+    public function states(){
+        return $this->hasMany(State::class, 'country_id', 'id');
     }
 
 }

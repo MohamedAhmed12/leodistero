@@ -16,8 +16,24 @@ class CreateCountriesTable extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('iso3')->nullable();
             $table->string('code');
-            $table->unsignedBigInteger('capital_id')->nullable();
+            $table->string('phonecode')->nullable();
+            $table->string('capital');
+            $table->string('currency')->nullable();
+            $table->string('currency_symbol')->nullable();
+            $table->string('tld')->nullable();
+            $table->string('native')->nullable();
+            $table->string('region')->nullable();
+            $table->string('subregion')->nullable();
+            $table->longText('timezones')->nullable();
+            $table->longText('translations')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longitude')->nullable();
+            $table->string('emoji')->nullable();
+            $table->string('emojiU')->nullable();
+            $table->string('flag')->nullable();
+            $table->string('wikiDataId')->nullable();
             $table->timestamps();
         });
     }

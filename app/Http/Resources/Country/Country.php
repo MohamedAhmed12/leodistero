@@ -5,7 +5,7 @@ namespace App\Http\Resources\Country;
 use DOMDocument;
 use App\Http\Resources\User\User;
 use App\Http\Resources\Category\Category;
-use App\Http\Resources\City\CityCollection;
+use App\Http\Resources\State\StateCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class Country extends JsonResource
@@ -21,7 +21,8 @@ class Country extends JsonResource
         return [
             'id'         =>  $this->id,
             'name'       =>  $this->name,
-            'cities'     =>  new CityCollection($this->whenLoaded('cities')),
+            'code'       =>  $this->code,
+            'states'     =>  new StateCollection($this->whenLoaded('states')),
             'created_at' =>  $this->created_at->format('Y-m-d H:ia'),
             'updateD_at' =>  $this->created_at->format('Y-m-d H:ia'),
         ];
