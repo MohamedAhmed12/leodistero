@@ -4,6 +4,7 @@ namespace App\Services;
 
 use stdClass;
 use Carbon\Traits\Date;
+use App\Models\Shipment;
 use Illuminate\Support\Facades\Storage;
 use Octw\Aramex\Aramex as AramexProvider;
 use App\Interfaces\ShippingAdapterInterface;
@@ -61,46 +62,44 @@ class Aramex implements ShippingAdapterInterface
     }
 
 
-    public function createShipment(array $data)
+    public function createShipment(object $data)
     {
         $callResponse = AramexProvider::createShipment([
             'shipper' => [
-                'name' => $data['shipper']['name'],
-                'email' => $data['shipper']['email'],
-                'phone'      => $data['shipper']['number'],
-                'cell_phone' => $data['shipper']['number'],
-                'country_code' => $data['shipper']['country']['code'],
-                'city' => $data['shipper']['city'],
-                'zip_code' => $data['shipper']['zip_code'],
-                'line1' => $data['shipper']['adress_line'],
-                'line2' => $data['shipper']['adress_line'],
-
+                'name' => $data->shipper_name,
+                'email' => $data->shipper_email,
+                'phone'      => $data->shipper_number,
+                'cell_phone' => $data->shipper_number,
+                'country_code' => $data->shipperCountry->code,
+                'city' => $data->shipperCity->name,
+                'zip_code' => $data->shipperCity->postal_code,
+                'line1' => $data->shipper_adress_line,
+                'line2' => $data->shipper_adress_line
             ],
             'consignee' => [
-                'name' => $data['recipient']['name'],
-                'email' => $data['recipient']['email'],
-                'phone' => $data['recipient']['number'],
-                'cell_phone' => $data['recipient']['number'],
-                'country_code' => $data['recipient']['country']['code'],
-                'city' => $data['recipient']['city'],
-                'zip_code' => $data['recipient']['zip_code'],
-                'line1' => $data['recipient']['adress_line'],
-                'line2' => $data['recipient']['adress_line'],
-                // 'line1' => 'Line1 Details',
+                'name' => $data->recipient_name,
+                'email' => $data->shipper_email,
+                'phone' => $data->recipient_number,
+                'cell_phone' => $data->recipient_number,
+                'country_code' => $data->recipientCountry->code,
+                'city' => $data->recipientCity->name,
+                'zip_code' => $data->recipientCity->postal_code,
+                'line1' => $data->recipient_adress_line,
+                'line2' => $data->recipient_adress_line
             ],
-            'shipping_date_time' => strtotime($data['package']['shipping_date_time']),
-            'due_date' => strtotime($data['package']['due_date']),
+            'shipping_date_time' => strtotime($data->package_shipping_date_time),
+            'due_date' => strtotime($data->package_due_date),
             'comments' => '',
-            'pickup_location' => $data['package']['pickup_location'],
+            'pickup_location' => $data->package_pickup_location,
             'pickup_guid' => null,
-            'weight' => $data['package']['weight'],
-            'length' => $data['package']['length'],
-            'width' => $data['package']['width'],
-            'height' => $data['package']['height'],
+            'weight' => $data->package_weight,
+            'length' => $data->package_length,
+            'width' => $data->package_width,
+            'height' => $data->package_height,
             'number_of_pieces' => 1,
-            'product_type' => $data['package']['shipment_type'] == 'standard' ? 'DPX' : 'PPX',
-            'customs_value_amount' => $data['package']['value'], //optional (required for express shipping)
-            'description' => $data['description'] ?? '',
+            'product_type' => $data->package_shipment_type == 'standard' ? 'DPX' : 'PPX',
+            'customs_value_amount' => $data->package_value, //optional (required for express shipping)
+            'description' => $data->package_description ?? '',
         ]);
 
 
@@ -114,15 +113,16 @@ class Aramex implements ShippingAdapterInterface
             );
 
             $shipmentId = $callResponse->Shipments->ProcessedShipment->ID;
-
-            return [
-                'labelPath' => asset(Storage::url($labelPath)),
-                'shipmentId' => $shipmentId
-            ];
+            
+            Shipment::whereId($data->id)->update([
+                'label_path' => asset(Storage::url($labelPath)),
+                'provider_shipment_id' => $shipmentId,
+                'provider_status' => ''
+            ]);
         } else {
-            return [
-                'errorMsg' => $callResponse->errors ? $callResponse->errors[0]->Message : ''
-            ];
+            Shipment::whereId($data->id)->update([
+                'provider_status' => $callResponse->errors ? $callResponse->errors[0]->Message : ''
+            ]);
         }
     }
 }

@@ -27,21 +27,21 @@ class Shipment extends Model
    
     public function shipperCountry()
     {
-        return $this->hasOne(Country::class, 'shipper_country_id', 'id');
+        return $this->hasOne(Country::class, 'id',  'shipper_country_id');
     }
 
     public function shipperCity()
     {
-        return $this->hasOne(City::class, 'shipper_city_id', 'id');
+        return $this->hasOne(City::class, 'id', 'shipper_city_id');
     }
 
     public function recipientCountry()
     {
-        return $this->hasOne(Country::class, 'recipient_country_id', 'id');
+        return $this->hasOne(Country::class, 'id', 'recipient_country_id');
     }
 
     public function recipientCity()
     {
-        return $this->hasOne(City::class, 'recipient_city_id', 'id');
+        return $this->hasOne(City::class, 'id', 'recipient_city_id');
     }
 }

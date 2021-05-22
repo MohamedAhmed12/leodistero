@@ -2,13 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CityController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\StateController;
 use App\Http\Controllers\Api\CountryController;
-use App\Http\Controllers\Api\ShippingController;
+use App\Http\Controllers\Api\ShipmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,8 +42,8 @@ Route::prefix('auth')->group(function () {
 
 
 Route::prefix('shipping')->group(function () {
-    Route::post('rate', [ShippingController::class, 'calculateRate']);
-    Route::post('shipment/{shippingProvider}', [ShippingController::class, 'createShipment'])->middleware('auth:api');
+    Route::post('rate', [ShipmentController::class, 'calculateRate']);
+    Route::post('shipment/{shippingProvider}', [ShipmentController::class, 'createShipment'])->middleware('auth:api');
 });
 Route::resource('/countries', CountryController::class);
 Route::resource('/cities', CityController::class);

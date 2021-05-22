@@ -158,7 +158,6 @@
             <tr>
                 <th>Package Shipment Type</th>
                 <td>{{ $shipment->package_shipment_type}}</td>
-                $shipment->
             </tr>
             
             <tr>

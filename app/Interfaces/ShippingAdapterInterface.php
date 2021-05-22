@@ -7,5 +7,5 @@ use App\Http\Requests\CreateShipmentFormRequest;
 interface ShippingAdapterInterface
 {
     public function calculateRate(Array $data);
-    public function createShipment(array $request);    
+    public function createShipment(object $request);    
 }

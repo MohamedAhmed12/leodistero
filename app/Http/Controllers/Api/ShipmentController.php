@@ -14,7 +14,7 @@ use App\Http\Requests\CreateShipmentFormRequest;
 use App\Models\Shipment;
 use DHL\Datatype\AM\Request;
 
-class ShippingController extends Controller
+class ShipmentController extends Controller
 {
     private $dhl;
     private $fedex;
@@ -50,10 +50,9 @@ class ShippingController extends Controller
         return response()->json($shipment);
     }
 
-    public function Ship(CreateShipmentFormRequest $request,  $shippingProvider)
+    public function ship($data,  $shippingProvider)
     {
-        $data = $request->validated();
-
-        return response()->json(app($shippingProvider)->createShipment($data));
+        app($shippingProvider)->createShipment($data);
+        // return response()->json(app($shippingProvider)->createShipment($data));
     }
 }

@@ -63,7 +63,7 @@ class DHL implements ShippingAdapterInterface
         ];
     }
 
-    public function createShipment(array $data)
+    public function createShipment(object $data)
     {
         $body = [
             "plannedShippingDateAndTime" => $data['package']['shipping_date_time'],

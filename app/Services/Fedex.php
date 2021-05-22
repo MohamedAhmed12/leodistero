@@ -108,7 +108,7 @@ class Fedex implements ShippingAdapterInterface
         ];
     }
 
-    public function createShipment(array $data)
+    public function createShipment(object $data)
     {
 
         //     $userCredential = new ShipComplexType\WebAuthenticationCredential();

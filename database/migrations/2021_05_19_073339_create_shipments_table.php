@@ -37,6 +37,8 @@ class CreateShipmentsTable extends Migration
             )
                 ->default('pending_admin_review');
             $table->string('provider_status')->nullable();
+            $table->string('provider_shipment_id')->nullable();
+            $table->string('label_path')->nullable();
             $table->string('shipper_name');
             $table->string('shipper_email');
             $table->string('shipper_number');
@@ -56,13 +58,14 @@ class CreateShipmentsTable extends Migration
             $table->string('package_width');
             $table->string('package_height');
             $table->string('package_quantity');
+            $table->string('package_value');
             $table->string('package_pickup_location');
             $table->string('package_description');
+            $table->string('package_shipment_type');
             $table->string('package_shipping_date_time');
             $table->string('package_due_date');
-            $table->string('package_shipment_type');
             $table->timestamps();
-
+            
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('shipper_country_id')->references('id')->on('countries')->onDelete('cascade');
             $table->foreign('shipper_city_id')->references('id')->on('cities')->onDelete('cascade');
