@@ -17,7 +17,7 @@ class CitiesTableSeeder extends Seeder
     public function run()
     {
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (1, 'Southern Nations, Nationalities, and Peoples\' Region', 70, 'ET', '54', 'SN', '6.51569110', '36.95410700', '2019-10-05 17:48:35', '2020-12-21 15:50:21', 1, 'Q203193'),
             (2, 'Somali Region', 70, 'ET', '52', 'SO', '6.66122930', '43.79084530', '2019-10-05 17:48:35', '2020-12-21 15:50:21', 1, 'Q202800'),
             (3, 'Amhara Region', 70, 'ET', '46', 'AM', '11.34942470', '37.97845850', '2019-10-05 17:48:35', '2020-12-21 15:50:21', 1, 'Q203009'),
@@ -389,7 +389,7 @@ class CitiesTableSeeder extends Seeder
             (369, 'Kween District', 229, 'UG', '83', '228', '1.44387900', '34.59713200', '2019-10-05 17:48:37', '2020-12-21 15:50:26', 1, 'Q3321998');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (370, 'Western Region', 229, 'UG', 'W', 'W', '40.76672150', '-111.88772030', '2019-10-05 17:48:37', '2020-12-21 15:50:22', 1, 'Q2559188'),
             (371, 'Mubende District', 229, 'UG', '56', '107', '0.57727580', '31.53700030', '2019-10-05 17:48:37', '2020-12-21 15:50:26', 1, 'Q891962'),
             (372, 'Eastern Region', 229, 'UG', 'E', 'E', '6.23740360', '-0.45023680', '2019-10-05 17:48:37', '2020-12-21 15:50:22', 1, 'Q2559220'),
@@ -753,7 +753,7 @@ class CitiesTableSeeder extends Seeder
             (730, 'Šibenik-Knin County', 55, 'HR', '13', '15', '43.92814850', '16.10376940', '2019-10-05 17:48:38', '2020-12-21 15:50:21', 1, 'Q58194');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (731, 'Lika-Senj County', 55, 'HR', '08', '09', '44.61922180', '15.47016080', '2019-10-05 17:48:38', '2020-12-21 15:50:21', 1, 'Q58081'),
             (732, 'Virovitica-Podravina County', 55, 'HR', '17', '10', '45.65579850', '17.79324720', '2019-10-05 17:48:38', '2020-12-21 15:50:21', 1, 'Q58092'),
             (733, 'Sisak-Moslavina County', 55, 'HR', '14', '03', '45.38379260', '16.53809940', '2019-10-05 17:48:38', '2020-12-21 15:50:21', 1, 'Q57060'),
@@ -1119,7 +1119,7 @@ class CitiesTableSeeder extends Seeder
             (1093, 'County Wexford', 105, 'IE', '30', 'WX', '52.47936030', '-6.58399130', '2019-10-05 17:48:40', '2020-12-21 15:50:22', 1, 'Q184599'),
             (1094, 'County Limerick', 105, 'IE', '16', 'LK', '52.50905170', '-8.74749550', '2019-10-05 17:48:40', '2020-12-21 15:50:22', 1, 'Q178283');
         ");
-        DB::insert("INSERT INTO 'cities' ('id', 'postal_code', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `postal_code`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (1095, '', 'County Carlow', 105, 'IE', '01', 'CW', '52.72322170', '-6.81082950', '2019-10-05 17:48:40', '2020-12-21 15:50:22', 1, 'Q181882'),
             (1096, '', 'County Laois', 105, 'IE', '15', 'LS', '52.99429500', '-7.33230070', '2019-10-05 17:48:40', '2020-12-21 15:50:22', 1, 'Q55299'),
             (1097, '', 'County Westmeath', 105, 'IE', '29', 'WH', '53.53453080', '-7.46532170', '2019-10-05 17:48:40', '2020-12-21 15:50:22', 1, 'Q182633'),
@@ -1492,7 +1492,7 @@ class CitiesTableSeeder extends Seeder
             (1500, '', 'Lapland', 74, 'FI', '19', 'LL', '67.92223040', '26.50464380', '2019-10-05 17:48:42', '2020-12-21 15:50:21', 1, 'Q200258');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (1501, 'Satakunta', 74, 'FI', '04', '17', '61.59327580', '22.14830810', '2019-10-05 17:48:42', '2020-12-21 15:50:21', 1, 'Q5709'),
             (1502, 'Päijänne Tavastia', 74, 'FI', '07', '16', '61.32300410', '25.73224960', '2019-10-05 17:48:42', '2020-12-21 15:50:21', 1, 'Q5708'),
             (1503, 'Northern Savonia', 74, 'FI', '07', '15', '63.08448000', '27.02535040', '2019-10-05 17:48:42', '2020-12-21 15:50:21', 1, 'Q5706'),
@@ -1847,7 +1847,7 @@ class CitiesTableSeeder extends Seeder
             (1853, 'Republic of North Ossetia-Alania', 182, 'RU', '68', 'SE', '43.04513020', '44.28709720', '2019-10-05 17:48:44', '2020-12-21 15:50:25', 1, 'Q5237');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (1854, 'Republic of Bashkortostan', 182, 'RU', '08', 'BA', '54.23121720', '56.16452570', '2019-10-05 17:48:44', '2020-12-21 15:50:25', 1, 'Q5710'),
             (1855, 'Kursk Oblast', 182, 'RU', '41', 'KRS', '51.76340260', '35.38118120', '2019-10-05 17:48:44', '2020-12-21 15:50:25', 1, 'Q3178'),
             (1856, 'Ulyanovsk Oblast', 182, 'RU', '81', 'ULY', '53.97933570', '47.77624250', '2019-10-05 17:48:44', '2020-12-21 15:50:25', 1, 'Q5634'),
@@ -2214,7 +2214,7 @@ class CitiesTableSeeder extends Seeder
             (2217, 'Ankara Province', 225, 'TR', '68', '06', '39.78052450', '32.71813750', '2019-10-05 17:48:46', '2020-12-21 15:50:26', 1, 'Q2297724'),
             (2218, 'Yalova Province', 225, 'TR', '92', '77', '40.57759860', '29.20883030', '2019-10-05 17:48:46', '2020-12-21 15:50:26', 1, 'Q483083');
         ");
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (2219, 'Rize Province', 225, 'TR', '53', '53', '40.95814970', '40.92269850', '2019-10-05 17:48:46', '2020-12-21 15:50:26', 1, 'Q483481'),
             (2220, 'Samsun Province', 225, 'TR', '55', '55', '41.18648590', '36.13226780', '2019-10-05 17:48:46', '2020-12-21 15:50:26', 1, 'Q483040'),
             (2221, 'Bilecik Province', 225, 'TR', '11', '11', '40.05665550', '30.06652360', '2019-10-05 17:48:46', '2020-12-21 15:50:26', 1, 'Q46763'),
@@ -2574,7 +2574,7 @@ class CitiesTableSeeder extends Seeder
             (2575, 'Centrale Region', 220, 'TG', '22', 'C', '8.65860290', '1.05861350', '2019-10-05 17:48:48', '2020-12-21 15:50:26', 1, 'Q316220');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (2576, 'Maritime', 220, 'TG', '24', 'M', '41.65514930', '-83.52784670', '2019-10-05 17:48:48', '2020-12-21 15:50:26', 1, 'Q316291'),
             (2577, 'Plateaux Region', 220, 'TG', '25', 'P', '7.61013780', '1.05861350', '2019-10-05 17:48:48', '2020-12-21 15:50:26', 1, 'Q316306'),
             (2578, 'Savanes Region', 220, 'TG', '26', 'S', '10.52917810', '0.52578230', '2019-10-05 17:48:48', '2020-12-21 15:50:21', 1, 'Q279945'),
@@ -2938,7 +2938,7 @@ class CitiesTableSeeder extends Seeder
             (2936, 'As-Suwayda', 215, 'SY', '05', 'SU', '32.79891560', '36.78195050', '2019-10-05 17:48:51', '2020-12-21 15:50:26', 1, 'Q236797');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'postal_code', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `postal_code`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (2937, '', 'Deir ez-Zor', 215, 'SY', '07', 'DY', '35.28797980', '40.30886260', '2019-10-05 17:48:51', '2020-12-21 15:50:26', 1, 'Q232387'),
             (2938, '', 'Latakia', 215, 'SY', '02', 'LA', '35.61297910', '36.00232250', '2019-10-05 17:48:51', '2020-12-21 15:50:26', 1, 'Q233236'),
             (2939, '', 'Damascus', 215, 'SY', '13', 'DI', '33.51514440', '36.39313540', '2019-10-05 17:48:51', '2020-12-21 15:50:26', 1, 'Q2007044'),
@@ -3299,7 +3299,7 @@ class CitiesTableSeeder extends Seeder
             (3295, '', 'Souss-Massa', 149, 'MA', '09', '09', '30.27506110', '-8.13385580', '2019-10-05 17:48:54', '2020-12-21 15:50:24', 1, 'Q20652586');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'postal_code', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `postal_code`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (3296, '', 'Taza Province', 149, 'MA', '09', 'TAZ', '34.27889530', '-3.58126920', '2019-10-05 17:48:54', '2020-12-21 15:50:24', 1, 'Q1819589'),
             (3297, '', 'Assa-Zag Province', 149, 'MA', '09', 'ASZ', '28.14023950', '-9.72326730', '2019-10-05 17:48:54', '2020-12-21 15:50:24', 1, 'Q180994'),
             (3298, '', 'Laâyoune-Sakia El Hamra', 149, 'MA', '11', '11', '27.86831940', '-11.98046130', '2019-10-05 17:48:54', '2020-12-21 15:50:24', 1, 'Q19951088'),
@@ -3665,7 +3665,7 @@ class CitiesTableSeeder extends Seeder
             (3658, '', 'Jalapa Department', 90, 'GT', '10', 'JA', '14.61214460', '-89.96267990', '2019-10-05 17:48:55', '2020-12-21 15:50:22', 1, 'Q795441');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (3659, 'Izabal Department', 90, 'GT', '09', 'IZ', '15.49765170', '-88.86469800', '2019-10-05 17:48:55', '2020-12-21 15:50:22', 1, 'Q693658'),
             (3660, 'Suchitepéquez Department', 90, 'GT', '20', 'SU', '14.42159820', '-91.40482490', '2019-10-05 17:48:55', '2020-12-21 15:50:22', 1, 'Q883734'),
             (3661, 'Sololá Department', 90, 'GT', '19', 'SO', '14.74852300', '-91.28910360', '2019-10-05 17:48:55', '2020-12-21 15:50:22', 1, 'Q178136'),
@@ -4032,7 +4032,7 @@ class CitiesTableSeeder extends Seeder
             (4026, 'Karnataka', 101, 'IN', '19', 'KA', '15.31727750', '75.71388840', '2019-10-05 17:48:57', '2020-12-21 15:50:22', 1, 'Q1185');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (4027, 'Assam', 101, 'IN', '03', 'AS', '26.20060430', '92.93757390', '2019-10-05 17:48:57', '2020-12-21 15:50:22', 1, 'Q1164'),
             (4028, 'Kerala', 101, 'IN', '13', 'KL', '10.85051590', '76.27108330', '2019-10-05 17:48:57', '2020-12-21 15:50:22', 1, 'Q1186'),
             (4029, 'Jammu and Kashmir', 101, 'IN', '12', 'JK', '33.27783900', '75.34121790', '2019-10-05 17:48:57', '2020-12-21 15:50:22', 1, 'Q1180'),
@@ -4381,7 +4381,7 @@ class CitiesTableSeeder extends Seeder
             (4372, 'Taraclia District', 144, 'MD', '90', 'TA', '45.89865100', '28.66716440', '2019-10-05 17:48:59', '2020-12-21 15:50:23', 1, 'Q865884');
         ");
 
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (4373, 'Chișinău Municipality', 144, 'MD', '57', 'CU', '47.01045290', '28.86381020', '2019-10-05 17:48:59', '2020-12-21 15:50:23', 1, 'Q17176229'),
             (4374, 'Soroca District', 144, 'MD', '87', 'SO', '48.15497430', '28.28707830', '2019-10-05 17:48:59', '2020-12-21 15:50:23', 1, 'Q2129022'),
             (4375, 'Briceni District', 144, 'MD', '63', 'BR', '48.36320220', '27.07503980', '2019-10-05 17:48:59', '2020-12-21 15:50:23', 1, 'Q753795'),
@@ -4737,7 +4737,7 @@ class CitiesTableSeeder extends Seeder
             (4725, 'Ilfov County', 181, 'RO', '43', 'IF', '44.53554800', '26.23248860', '2019-10-05 17:49:00', '2020-12-21 15:50:25', 1, 'Q191670');
         ");
         
-        DB::insert("INSERT INTO 'cities' ('id', 'name', 'country_id', 'country_code', 'fips_code', 'iso2', 'latitude', 'longitude', 'created_at', 'updated_at', 'flag', 'wikiDataId') VALUES
+        DB::insert("INSERT INTO cities (`id`, `name`, `country_id`, `country_code`, `fips_code`, `iso2`, `latitude`, `longitude`, `created_at`, `updated_at`, `flag`, `wikiDataId`) VALUES
             (4726, 'Giurgiu County', 181, 'RO', '42', 'GR', '43.90370760', '25.96992650', '2019-10-05 17:49:00', '2020-12-21 15:50:25', 1, 'Q193055'),
             (4727, 'Tulcea County', 181, 'RO', '37', 'TL', '45.04505650', '29.03249120', '2019-10-05 17:49:00', '2020-12-21 15:50:25', 1, 'Q191078'),
             (4728, 'Teleorman County', 181, 'RO', '35', 'TR', '44.01604910', '25.29866280', '2019-10-05 17:49:00', '2020-12-21 15:50:25', 1, 'Q191653'),
