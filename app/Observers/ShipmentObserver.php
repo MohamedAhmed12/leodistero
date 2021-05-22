@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Models\Shipment;
 use Validator;
-use App\Http\Controllers\Api\ShipmentController;
+use App\Models\Shipment;
+use App\Http\Controllers\ShipmentController;
 use App\Http\Requests\CreateShipmentFormRequest;
 
 class ShipmentObserver
@@ -26,7 +26,7 @@ class ShipmentObserver
      * @param  \App\Models\Shipment  $shipment
      * @return void
      */
-    public function updating(Shipment $shipment)
+    public function updated(Shipment $shipment)
     {
         if ($shipment->status == 4) {
             $data = $shipment->load([

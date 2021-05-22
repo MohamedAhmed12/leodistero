@@ -4,6 +4,7 @@ namespace App\Services;
 
 use stdClass;
 use Carbon\Carbon;
+use App\Models\Shipment;
 use DHL\Datatype\GB\Piece;
 use Illuminate\Support\Str;
 use DHL\Entity\GB\ShipmentRequest;
@@ -66,7 +67,7 @@ class DHL implements ShippingAdapterInterface
     public function createShipment(object $data)
     {
         $body = [
-            "plannedShippingDateAndTime" => $data['package']['shipping_date_time'],
+            "plannedShippingDateAndTime" => $data->package_shipping_date_time,
             "pickup" => [
                 "isRequested" => false,
                 "closeTime" => "18:00",
@@ -90,34 +91,34 @@ class DHL implements ShippingAdapterInterface
             "customerDetails" => [
                 "shipperDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data['shipper']['zip_code'],
-                        "cityName" =>  $data['shipper']['city'],
-                        "countryCode" =>  $data['shipper']['country']['code'],
-                        "provinceCode" => $data['shipper']['country']['code'],
-                        "addressLine1" => $data['shipper']['adress_line'],
+                        "postalCode" => $data->shipperCity->postal_code,
+                        "cityName" =>  $data->shipperCity->name,
+                        "countryCode" => $data->shipperCountry->code,
+                        "provinceCode" => $data->shipperCountry->code,
+                        "addressLine1" => $data->shipper_adress_line,
                     ],
                     "contactInformation" => [
-                        "email" =>  $data['shipper']['email'],
-                        "phone" => $data['shipper']['number'],
-                        "mobilePhone" => $data['shipper']['number'],
-                        "companyName" => "Shipper Acne Co",
-                        "fullName" => $data['shipper']['name']
+                        "email" =>  $data->shipper_email,
+                        "phone" => $data->shipper_number,
+                        "mobilePhone" => $data->shipper_number,
+                        "companyName" => "Shipper Co",
+                        "fullName" => $data->shipper_name
                     ]
                 ],
                 "receiverDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data['recipient']['zip_code'],
-                        "cityName" =>  $data['recipient']['city'],
-                        "countryCode" =>  $data['recipient']['country']['code'],
-                        "provinceCode" => $data['recipient']['country']['code'],
-                        "addressLine1" => $data['recipient']['adress_line'],
+                        "postalCode" => $data->recipientCity->postal_code,
+                        "cityName" =>  $data->recipientCity->name,
+                        "countryCode" =>  $data->recipientCountry->code,
+                        "provinceCode" => $data->recipientCountry->code,
+                        "addressLine1" => $data->recipient_adress_line,
                     ],
                     "contactInformation" => [
-                        "email" =>  $data['recipient']['email'],
-                        "phone" => $data['recipient']['number'],
-                        "mobilePhone" => $data['recipient']['number'],
-                        "companyName" => "Shipper Acne Co",
-                        "fullName" => $data['recipient']['name']
+                        "email" =>  $data->recipient_email,
+                        "phone" => $data->recipient_number,
+                        "mobilePhone" => $data->recipient_number,
+                        "companyName" => "Shipper Co",
+                        "fullName" => $data->recipient_name
                     ]
                 ]
             ],
@@ -170,15 +171,28 @@ class DHL implements ShippingAdapterInterface
                 $image
             );
 
-            return [
-                'labelPath' => asset(Storage::url($labelPath)),
-                'shipmentId' => $res['shipmentTrackingNumber']
-            ];
-        }
-
-        return [
-            'errorMsg' => $res->json('detail') ?? $res->json()
-        ];
+            Shipment::whereId($data->id)->update([
+                'label_path' => asset(Storage::url($labelPath)),
+                'provider_shipment_id' => $res['shipmentTrackingNumber'],
+                'provider_status' => '',
+                'status' => 5
+            ]);
+        } else{
+            $errMsg = '';
+    
+            if ($res->json('detail')) {
+                if ($res->json('detail') == 'Multiple problems found, see Additional Details') {
+                    $errMsg = $res->json('additionalDetails')[0];
+                } else {
+                    $errMsg =  $res->json('detail');
+                }
+            }
+    
+            Shipment::whereId($data->id)->update([
+                'provider_status' => $errMsg,
+                'status' => 2
+            ]);
+        } 
     }
 
 

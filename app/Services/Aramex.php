@@ -117,11 +117,13 @@ class Aramex implements ShippingAdapterInterface
             Shipment::whereId($data->id)->update([
                 'label_path' => asset(Storage::url($labelPath)),
                 'provider_shipment_id' => $shipmentId,
-                'provider_status' => ''
+                'provider_status' => '',
+                'status' => 5
             ]);
         } else {
             Shipment::whereId($data->id)->update([
-                'provider_status' => $callResponse->errors ? $callResponse->errors[0]->Message : ''
+                'provider_status' => $callResponse->errors ? $callResponse->errors[0]->Message : '',
+                'status' => 2
             ]);
         }
     }

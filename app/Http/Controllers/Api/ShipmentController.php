@@ -45,14 +45,9 @@ class ShipmentController extends Controller
     public function createShipment(CreateShipmentFormRequest $request,  $shippingProvider)
     {
         $data = $request->validated();
+        $data['provider'] = $shippingProvider;
         $shipment = Shipment::create($data);
         
         return response()->json($shipment);
-    }
-
-    public function ship($data,  $shippingProvider)
-    {
-        app($shippingProvider)->createShipment($data);
-        // return response()->json(app($shippingProvider)->createShipment($data));
     }
 }

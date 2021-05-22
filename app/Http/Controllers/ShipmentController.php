@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\shipmentsDataTable;
 use App\Models\Shipment;
 use Illuminate\Http\Request;
+use App\DataTables\shipmentsDataTable;
+use Illuminate\Database\Eloquent\Model;
 
 class ShipmentController extends Controller
 {
@@ -99,5 +100,17 @@ class ShipmentController extends Controller
         }
 
         return redirect()->route('shipments.index');
+    }
+
+     /**
+     * Create shpment instance at provider.
+     *
+     * @param  \Illuminate\Database\Eloquent\Model  $data
+     * @param  string  $shippingProvider
+     * @return void
+     */
+    public function ship($data, $shippingProvider)
+    {
+        app($shippingProvider)->createShipment($data);
     }
 }

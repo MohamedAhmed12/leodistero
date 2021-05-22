@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\CreateShipmentFormRequest;
 use App\Interfaces\ShippingAdapterInterface;
+use App\Models\Shipment;
 use FedEx\RateService\Request;
 use FedEx\RateService\ComplexType;
 use FedEx\RateService\SimpleType;
@@ -343,25 +344,25 @@ class Fedex implements ShippingAdapterInterface
 
 
 
-      $userCredential = new ShipComplexType\WebAuthenticationCredential();
-            $userCredential
-                ->setKey(env('FEDEX_KEY'))
-                ->setPassword(env('FEDEX_PASSWORD'));
+        $userCredential = new ShipComplexType\WebAuthenticationCredential();
+        $userCredential
+            ->setKey(env('FEDEX_KEY'))
+            ->setPassword(env('FEDEX_PASSWORD'));
 
-            $webAuthenticationDetail = new ShipComplexType\WebAuthenticationDetail();
-            $webAuthenticationDetail->setUserCredential($userCredential);
+        $webAuthenticationDetail = new ShipComplexType\WebAuthenticationDetail();
+        $webAuthenticationDetail->setUserCredential($userCredential);
 
-            $clientDetail = new ShipComplexType\ClientDetail();
-            $clientDetail
-                ->setAccountNumber(env('FEDEX_ACCOUNT_NUMBER'))
-                ->setMeterNumber(env('FEDEX_METER_NUMBER'));
+        $clientDetail = new ShipComplexType\ClientDetail();
+        $clientDetail
+            ->setAccountNumber(env('FEDEX_ACCOUNT_NUMBER'))
+            ->setMeterNumber(env('FEDEX_METER_NUMBER'));
 
-            $version = new ShipComplexType\VersionId();
-            $version
-                ->setMajor(26)
-                ->setIntermediate(0)
-                ->setMinor(0)
-                ->setServiceId('ship');
+        $version = new ShipComplexType\VersionId();
+        $version
+            ->setMajor(26)
+            ->setIntermediate(0)
+            ->setMinor(0)
+            ->setServiceId('ship');
 
         $shipperAddress = new ShipComplexType\Address();
         $shipperAddress
@@ -372,10 +373,10 @@ class Fedex implements ShippingAdapterInterface
             // ->setCountryCode('US');
 
             ->setStreetLines(['Address Line 1'])
-        ->setCity('Austin')
-        ->setStateOrProvinceCode('TX')
-        ->setPostalCode('73301')
-        ->setCountryCode('US'); 
+            ->setCity('Austin')
+            ->setStateOrProvinceCode('TX')
+            ->setPostalCode('73301')
+            ->setCountryCode('US');
 
         $shipperContact = new ShipComplexType\Contact();
         $shipperContact
@@ -392,17 +393,17 @@ class Fedex implements ShippingAdapterInterface
 
         $recipientAddress = new ShipComplexType\Address();
         $recipientAddress
-        // ->setStreetLines(['Address Line 1'])
-        // ->setCity('Dubai')
-        // ->setStateOrProvinceCode('')
-        // ->setPostalCode('00000')
-        // ->setCountryCode('AE');  
- 
-        ->setStreetLines(['Address Line 1'])
-    ->setCity('Richmond')
-    ->setStateOrProvinceCode('BC')
-    ->setPostalCode('V7C4V4')
-    ->setCountryCode('CA');
+            // ->setStreetLines(['Address Line 1'])
+            // ->setCity('Dubai')
+            // ->setStateOrProvinceCode('')
+            // ->setPostalCode('00000')
+            // ->setCountryCode('AE');  
+
+            ->setStreetLines(['Address Line 1'])
+            ->setCity('Richmond')
+            ->setStateOrProvinceCode('BC')
+            ->setPostalCode('V7C4V4')
+            ->setCountryCode('CA');
 
         // ->setStreetLines(['Address Line 1'])
         //     ->setCity('Austin')
@@ -440,51 +441,56 @@ class Fedex implements ShippingAdapterInterface
                 'Units' => ShipSimpleType\WeightUnits::_LB
             )));
 
-            $cus = new ShipComplexType\CustomsClearanceDetail();
-            //  new ShipComplexType\CustomsClearanceDetail();
-            $money = new ShipComplexType\Money();
-            $money->setCurrency('USD');
-            $money->setAmount('120');
-            $cus->setCustomsValue($money);
+        $cus = new ShipComplexType\CustomsClearanceDetail();
+        //  new ShipComplexType\CustomsClearanceDetail();
+        $money = new ShipComplexType\Money();
+        $money->setCurrency('USD');
+        $money->setAmount('120');
+        $cus->setCustomsValue($money);
 
-            $commodity = new ShipComplexType\Commodity();
-            $commodity->setNumberOfPieces(1);
-            $commodity->setDescription('Test');
-            $commodity->setCountryOfManufacture('US');
-            $commodity->setWeight(new ShipComplexType\Weight([
-                'Units' => ShipSimpleType\WeightUnits::_LB,
-                'Value' => 2
-            ]));
-            $commodity->setQuantity(1);
-            $commodity->setQuantityUnits('EA');
-            // $commodity->setUnitPrice(new ShipComplexType\Money([
-            //         'Currency' => 'USD',
-            //         'Amount' => '120'
-            //     ]));
-            $cus->setCommodities($commodity->toArray());
+        $commodity = new ShipComplexType\Commodity();
+        $commodity->setNumberOfPieces(1);
+        $commodity->setDescription('Test');
+        $commodity->setCountryOfManufacture('US');
+        $commodity->setWeight(new ShipComplexType\Weight([
+            'Units' => ShipSimpleType\WeightUnits::_LB,
+            'Value' => 2
+        ]));
+        $commodity->setQuantity(1);
+        $commodity->setQuantityUnits('EA');
+        $commodity->setUnitPrice(new ShipComplexType\Money([
+            'Currency' => 'USD',
+            'Amount' => '120'
+        ]));
+        $commodity->setCustomsValue(new ShipComplexType\Money([
+            'Currency' => 'USD',
+            'Amount' => '120'
+        ]));
 
-            $cus->setDocumentContent(ShipSimpleType\InternationalDocumentContentType::_NON_DOCUMENTS);
+        $cus->setCommodities($commodity->toArray());
+
+        $cus->setDocumentContent(ShipSimpleType\InternationalDocumentContentType::_NON_DOCUMENTS);
 
 
         $shippingChargesPayor = new ShipComplexType\Payor();
         $shippingChargesPayor->setResponsibleParty($shipper);
-        
+
         $shippingChargesPayment = new ShipComplexType\Payment();
         $shippingChargesPayment
-        ->setPaymentType(ShipSimpleType\PaymentType::_SENDER)
-        ->setPayor($shippingChargesPayor);
+            ->setPaymentType(ShipSimpleType\PaymentType::_SENDER)
+            ->setPayor($shippingChargesPayor);
         // $creditCard = new ShipComplexType\CreditCard();
         // $creditCard->setNumber('4263093040006602');
         // $creditCard->setExpirationDate('09/21');
         //     // {
-            //     const _ACCOUNT = 'ACCOUNT';
-            //     const _CASH = 'CASH';
-            //     const _COLLECT = 'COLLECT';
-            //     const _CREDIT_CARD = 'CREDIT_CARD';
-            //     const _RECIPIENT = 'RECIPIENT';
-            //     const _SENDER = 'SENDER';
-            //     const _THIRD_PARTY = 'THIRD_PARTY';
-            // }
+        //     const _ACCOUNT = 'ACCOUNT';
+        //     const _CASH = 'CASH';
+        //     const _COLLECT = 'COLLECT';
+        //     const _CREDIT_CARD = 'CREDIT_CARD';
+        //     const _RECIPIENT = 'RECIPIENT';
+        //     const _SENDER = 'SENDER';
+        //     const _THIRD_PARTY = 'THIRD_PARTY';
+        // }
         $requestedShipment = new ShipComplexType\RequestedShipment();
         $requestedShipment->setShipTimestamp(date('c'));
         $requestedShipment->setDropoffType(new ShipSimpleType\DropoffType(ShipSimpleType\DropoffType::_REGULAR_PICKUP));
@@ -499,7 +505,7 @@ class Fedex implements ShippingAdapterInterface
             $packageLineItem1
         ]);
         $requestedShipment->setShippingChargesPayment($shippingChargesPayment);
-            $requestedShipment->setCustomsClearanceDetail($cus);
+        $requestedShipment->setCustomsClearanceDetail($cus);
 
         $processShipmentRequest = new ShipComplexType\ProcessShipmentRequest();
         $processShipmentRequest->setWebAuthenticationDetail($webAuthenticationDetail);
@@ -508,9 +514,10 @@ class Fedex implements ShippingAdapterInterface
         $processShipmentRequest->setRequestedShipment($requestedShipment);
 
         $shipService = new ShipService\Request();
+
+        dd( $processShipmentRequest->toArray());
         //$shipService->getSoapClient()->__setLocation('https://ws.fedex.com:443/web-services/ship');
         $result = $shipService->getProcessShipmentReply($processShipmentRequest);
-
-        dd($result);
+        Shipment::find($data->id)->update(['provider_status' => $processShipmentRequest->toArray()]);
     }
 }
