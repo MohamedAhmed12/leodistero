@@ -31,9 +31,9 @@ class CreateCountriesTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->string('emoji')->nullable();
-            $table->string('emojiU')->nullable();
+            $table->string('emoji2')->nullable();
             $table->string('flag')->nullable();
-            $table->string('wikiDataId')->nullable();
+            $table->string('wikiData_id')->nullable();
             $table->timestamps();
         });
     }
