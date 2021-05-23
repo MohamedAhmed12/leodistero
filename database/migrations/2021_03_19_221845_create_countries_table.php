@@ -33,7 +33,7 @@ class CreateCountriesTable extends Migration
             $table->string('emoji')->nullable();
             $table->string('emoji2')->nullable();
             $table->string('flag')->nullable();
-            $table->string('wikiData_id')->nullable();
+            $table->string('wikidata_id')->nullable();
             $table->timestamps();
         });
     }
