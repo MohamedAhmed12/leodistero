@@ -56,13 +56,13 @@
             </tr>
             
             <tr>
-                <th>Shipper Country ID</th>
-                <td>{{ $shipment->shipper_country_id}}</td>
+                <th>Shipper Country</th>
+                <td>{{ $shipment->shipperCountry->name}}</td>
             </tr>
             
             <tr>
-                <th>Shipper State ID</th>
-                <td>{{ $shipment->shipper_state_id}}</td>
+                <th>Shipper State</th>
+                <td>{{ $shipment->shipperCity->name}}</td>
             </tr>
             
             <tr>
@@ -91,13 +91,13 @@
             </tr>
             
             <tr>
-                <th>Recipient Country ID</th>
-                <td>{{ $shipment->recipient_country_id}}</td>
+                <th>Recipient Country</th>
+                <td>{{ $shipment->recipientCountry->name}}</td>
             </tr>
             
             <tr>
-                <th>Recipient State ID</th>
-                <td>{{ $shipment->recipient_state_id}}</td>
+                <th>Recipient State</th>
+                <td>{{ $shipment->recipientCity->name}}</td>
             </tr>
             
             <tr>

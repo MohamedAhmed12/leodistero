@@ -441,6 +441,14 @@ class Fedex implements ShippingAdapterInterface
                 'Units' => ShipSimpleType\WeightUnits::_LB
             )));
 
+        $shippingChargesPayor = new ShipComplexType\Payor();
+        $shippingChargesPayor->setResponsibleParty($shipper);
+
+        $shippingChargesPayment = new ShipComplexType\Payment();
+        $shippingChargesPayment
+            ->setPaymentType(ShipSimpleType\PaymentType::_SENDER)
+            ->setPayor($shippingChargesPayor);
+
         $cus = new ShipComplexType\CustomsClearanceDetail();
         //  new ShipComplexType\CustomsClearanceDetail();
         $money = new ShipComplexType\Money();
@@ -468,17 +476,11 @@ class Fedex implements ShippingAdapterInterface
         ]));
 
         $cus->setCommodities($commodity->toArray());
+        $cus->setDutiesPayment($shippingChargesPayment);
 
         $cus->setDocumentContent(ShipSimpleType\InternationalDocumentContentType::_NON_DOCUMENTS);
 
 
-        $shippingChargesPayor = new ShipComplexType\Payor();
-        $shippingChargesPayor->setResponsibleParty($shipper);
-
-        $shippingChargesPayment = new ShipComplexType\Payment();
-        $shippingChargesPayment
-            ->setPaymentType(ShipSimpleType\PaymentType::_SENDER)
-            ->setPayor($shippingChargesPayor);
         // $creditCard = new ShipComplexType\CreditCard();
         // $creditCard->setNumber('4263093040006602');
         // $creditCard->setExpirationDate('09/21');
@@ -515,9 +517,9 @@ class Fedex implements ShippingAdapterInterface
 
         $shipService = new ShipService\Request();
 
-        dd( $processShipmentRequest->toArray());
         //$shipService->getSoapClient()->__setLocation('https://ws.fedex.com:443/web-services/ship');
         $result = $shipService->getProcessShipmentReply($processShipmentRequest);
+        dd($result);
         Shipment::find($data->id)->update(['provider_status' => $processShipmentRequest->toArray()]);
     }
 }

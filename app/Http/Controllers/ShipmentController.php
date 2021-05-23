@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\City;
+use App\Models\Country;
 use App\Models\Shipment;
 use Illuminate\Http\Request;
 use App\DataTables\shipmentsDataTable;
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Requests\CreateShipmentFormRequest;
+use CreateShipmentsTable;
 
 class ShipmentController extends Controller
 {
@@ -26,7 +30,12 @@ class ShipmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('pages.shipments.create', [
+            'shipments'  =>  Shipment::all(),
+            'countries'  =>  Country::all(),
+            'cities'  =>  City::all(),
+            'providers' => ['fedex', 'dhl', 'aramex']
+        ]);
     }
 
     /**
@@ -35,9 +44,11 @@ class ShipmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateShipmentFormRequest $request)
     {
-        //
+        $validated = $request->validated();
+        $shipment = Shipment::create($validated);
+        return redirect()->route('shipments.show', $shipment->id);
     }
 
     /**
@@ -48,6 +59,12 @@ class ShipmentController extends Controller
      */
     public function show(Shipment $shipment)
     {
+        $shipment->load([
+            'shipperCountry',
+            'shipperCity',
+            'recipientCountry',
+            'recipientCity'
+        ]);
         return view('pages.shipments.show', [
             'shipment' => $shipment
         ]);
@@ -59,7 +76,7 @@ class ShipmentController extends Controller
      * @param  \App\Models\Shipment  $shipment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Shipment $shipment)
+    public function edit(Request $shipment)
     {
         return view('pages.shipments.edit', [
             'shipment' =>  $shipment,
@@ -79,10 +96,10 @@ class ShipmentController extends Controller
         $request->validate([
             'status'         => ['required', 'numeric', 'max:5'],
         ]);
-        
+
         $shipment->update($request->only(['status']));
 
-        return redirect()->route('shipments.show',$shipment->id);
+        return redirect()->route('shipments.show', $shipment->id);
     }
 
     /**
@@ -93,16 +110,15 @@ class ShipmentController extends Controller
      */
     public function destroy(Shipment $shipment)
     {
-        try{
+        try {
             $shipment->delete();
-        }catch(\Exception $ex){
-
+        } catch (\Exception $ex) {
         }
 
         return redirect()->route('shipments.index');
     }
 
-     /**
+    /**
      * Create shpment instance at provider.
      *
      * @param  \Illuminate\Database\Eloquent\Model  $data

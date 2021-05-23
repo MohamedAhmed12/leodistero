@@ -290,6 +290,11 @@ return [
             'icon'    => 'fas fa-fw fa-share',
             'url'  => '/shipments',
         ],
+        [
+            'text' => 'Create Shipments',
+            'icon'    => 'fas fa-fw fa-share',
+            'url'  => '/shipments/create',
+        ],
         ['header' => 'Settings'],
         [
             'text' => 'Main Settings',

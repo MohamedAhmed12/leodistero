@@ -43,7 +43,9 @@ class CreateShipmentFormRequest extends FormRequest
             // "package_shipping_date_time" => ['required', 'date','before_or_equal:' . now()->addDays(4)->toDateString()],
             "package_shipping_date_time" => ['required', 'string'],
             "package_due_date" => ['required', 'date', 'before_or_equal:' . now()->addDays(45)->toDateString()],
-            "package_shipment_type" => ['required', 'in:standard,express']
+            "package_shipment_type" => ['required', 'in:standard,express'],
+
+            "provider" => ['nullable', 'in:fedex,dhl,aramex']
         ];
     }
 
