@@ -24,7 +24,7 @@ class CreateCitiesTable extends Migration
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
             $table->longText('flag')->nullable();
-            $table->longText('wikiDataId')->nullable();
+            $table->longText('wikidata_id')->nullable();
             $table->timestamps();
             
             $table->foreign('country_id')->references('id')->on('countries')->onDelete('cascade');
