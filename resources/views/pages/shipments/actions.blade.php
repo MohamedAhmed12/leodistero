@@ -6,7 +6,7 @@
             </a>
         </li>
         <li class="list-inline-item align-top">
-            <a href="{{ route('shipments.edit',$id) }}">
+            <a href="{{ route('shipments.edit', $id) }}">
                 <i class="fas fa-edit"></i>
             </a>
         </li>

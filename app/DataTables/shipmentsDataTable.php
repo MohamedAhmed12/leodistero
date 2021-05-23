@@ -73,7 +73,7 @@ class shipmentsDataTable extends DataTable
     {
         return [
             Column::make('id'),
-            Column::make('tracking_id'),
+            Column::make('provider_shipment_id')->title('tracking_id'),
             Column::make('user_id'),
             Column::make('provider'),
             Column::make('status'),

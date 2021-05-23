@@ -14,11 +14,6 @@
                 <th>Id</th>
                 <td>{{ $shipment->id }}</td>
             </tr>
-            
-            <tr>
-                <th>Tracking ID</th>
-                <td>{{ $shipment->tracking_id }}</td>
-            </tr>
 
             <tr>
                 <th>User</th>
@@ -36,140 +31,153 @@
             </tr>
 
             <tr>
-                <th>Provider Status</th>
-                <td>{{ $shipment->provider_status}}</td>
-            </tr>
-            
-            <tr>
                 <th>Shipper Name</th>
                 <td>{{ $shipment->shipper_name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper Email</th>
                 <td>{{ $shipment->shipper_email}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper Number</th>
                 <td>{{ $shipment->shipper_number}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper Country</th>
                 <td>{{ $shipment->shipperCountry->name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper State</th>
                 <td>{{ $shipment->shipperCity->name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper Adress Line</th>
                 <td>{{ $shipment->shipper_adress_line}}</td>
             </tr>
-            
+
             <tr>
                 <th>Shipper Zip_code</th>
                 <td>{{ $shipment->shipper_zip_code}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Name</th>
                 <td>{{ $shipment->recipient_name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Email</th>
                 <td>{{ $shipment->recipient_email}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Number</th>
                 <td>{{ $shipment->recipient_number}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Country</th>
                 <td>{{ $shipment->recipientCountry->name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient State</th>
                 <td>{{ $shipment->recipientCity->name}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Adress Line</th>
                 <td>{{ $shipment->recipient_adress_line}}</td>
             </tr>
-            
+
             <tr>
                 <th>Recipient Zip_code</th>
                 <td>{{ $shipment->recipient_zip_code}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Weight</th>
                 <td>{{ $shipment->package_weight}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Length</th>
                 <td>{{ $shipment->package_length}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Width</th>
                 <td>{{ $shipment->package_width}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Height</th>
                 <td>{{ $shipment->package_height}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Quantity</th>
                 <td>{{ $shipment->package_quantity}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Pickup Location</th>
                 <td>{{ $shipment->package_pickup_location}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Description</th>
                 <td>{{ $shipment->package_description}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Shipping Date Time</th>
                 <td>{{ $shipment->package_shipping_date_time}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Due Date</th>
                 <td>{{ $shipment->package_due_date}}</td>
             </tr>
-            
+
             <tr>
                 <th>Package Shipment Type</th>
                 <td>{{ $shipment->package_shipment_type}}</td>
             </tr>
-            
+
             <tr>
                 <th>Created At</th>
                 <td>{{ $shipment->created_at }}</td>
             </tr>
-            
+
             <tr>
                 <th>Updated At</th>
                 <td>{{ $shipment->updated_at }}</td>
             </tr>
+
+            <tr>
+                <th>Provider Status</th>
+                <td>{{ $shipment->provider_status}}</td>
+            </tr>
+
+            <tr>
+                <th>Tracking ID</th>
+                <td>{{ $shipment->provider_shipment_id }}</td>
+            </tr>
+
+            <tr>
+                <th>Label</th>
+                <td>
+                    <iframe src="{{ $shipment->label_path }}" alt="" style="height: 500px;"></iframe>
+                </td>
+            </tr>
         </table>
+
     </div>
     <div class="card-footer">
         <form action="{{ route('shipments.destroy',$shipment->id) }}" method="post">

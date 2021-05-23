@@ -12,10 +12,6 @@
             <h3>Create Shipment</h3>
         </div>
         
-        @foreach($errors as $err)
-        {{$err}}
-        @endforeach
-        
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Shipper Name</label>

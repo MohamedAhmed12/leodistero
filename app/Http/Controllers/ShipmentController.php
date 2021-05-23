@@ -76,7 +76,7 @@ class ShipmentController extends Controller
      * @param  \App\Models\Shipment  $shipment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $shipment)
+    public function edit(Shipment $shipment)
     {
         return view('pages.shipments.edit', [
             'shipment' =>  $shipment,
