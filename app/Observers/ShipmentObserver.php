@@ -28,7 +28,7 @@ class ShipmentObserver
      */
     public function updated(Shipment $shipment)
     {
-        if ($shipment->status == 4) {
+        if ($shipment->status == 'paid') {
             $data = $shipment->load([
                 'shipperCountry',
                 'shipperCity',

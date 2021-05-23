@@ -94,7 +94,7 @@ class ShipmentController extends Controller
     public function update(Request $request, Shipment $shipment)
     {
         $request->validate([
-            'status'         => ['required', 'numeric', 'max:5'],
+            'status' => ['required'],
         ]);
 
         $shipment->update($request->only(['status']));

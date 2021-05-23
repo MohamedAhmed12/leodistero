@@ -18,18 +18,18 @@ class CreateShipmentFormRequest extends FormRequest
         return [
             "shipper_name" => ["required", "string"],
             "shipper_email" => ["required", "email"],
-            "shipper_number" => ["required", "numeric"],
+            "shipper_number" => ["required", "numeric", "min:8"],
             "shipper_country_id" => ["required", "exists:countries,id"],
             "shipper_city_id" => ["required", "exists:cities,id"],
-            "shipper_adress_line" => ["required", "string"],
+            "shipper_adress_line" => ["required", "string", "min:5"],
             "shipper_zip_code" => ["required", "string"],
 
             "recipient_name" => ["required", "string"],
             "recipient_email" => ["required", "email"],
-            "recipient_number" => ["required", "numeric"],
+            "recipient_number" => ["required", "numeric", "min:8"],
             "recipient_country_id" => ["required", "exists:countries,id"],
             "recipient_city_id" => ["required", "exists:cities,id"],
-            "recipient_adress_line" => ["required", "string"],
+            "recipient_adress_line" => ["required", "string", "min:5"],
             "recipient_zip_code" => ["required", "string"],
 
             "package_weight" => ["required", "numeric"],

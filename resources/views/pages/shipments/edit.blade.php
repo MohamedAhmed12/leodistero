@@ -35,11 +35,11 @@
                 <label for="status">status</label>
                 <select class="form-control" name="status" id="status">
                     <option></option>
-                    <option value="1" {{ $shipment->status == 'pending admin review' ? 'selected' : '' }}>pending admin review</option>
-                    <option value="2" {{ $shipment->status == 'pending need updates' ? 'selected' : '' }}>pending need updates</option>
-                    <option value="3" {{ $shipment->status == 'pending user payment' ? 'selected' : '' }}>pending user payment</option>
-                    <option value="4" {{ $shipment->status == 'paid' ? 'selected' : '' }}>paid and ready for shipping</option>
-                    <option value="5" {{ $shipment->status == 'shipped' ? 'selected' : '' }} disabled>shipped</option>
+                    <option value="pending_admin_review" {{ $shipment->status == 'pending admin review' ? 'selected' : '' }}>pending admin review</option>
+                    <option value="pending_need_updates" {{ $shipment->status == 'pending need updates' ? 'selected' : '' }}>pending need updates</option>
+                    <option value="pending_user_payment" {{ $shipment->status == 'pending user payment' ? 'selected' : '' }}>pending user payment</option>
+                    <option value="paid" {{ $shipment->status == 'paid' ? 'selected' : '' }}>paid and ready for shipping</option>
+                    <option value="shipped" {{ $shipment->status == 'shipped' ? 'selected' : '' }} disabled>shipped</option>
                 </select>
                 @if($errors->has("status"))
                 <div class="alert alert-danger w-100 m-0" role="alert">
