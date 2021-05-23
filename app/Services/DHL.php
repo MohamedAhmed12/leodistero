@@ -125,11 +125,11 @@ class DHL implements ShippingAdapterInterface
                 "packages" => [
                     [
                         "typeCode" => "2BP",
-                        "weight" => 1,
+                        "weight" => $data->package_weight,
                         "dimensions" => [
-                            "length" => 1,
-                            "width" => 1,
-                            "height" => 1
+                            "length" => $data->package_length,
+                            "width" => $data->package_width,
+                            "height" => $data->package_height
                         ],
                         "customerReferences" => [
                             [
@@ -141,7 +141,7 @@ class DHL implements ShippingAdapterInterface
                     ]
                 ],
                 "isCustomsDeclarable" => true,
-                "declaredValue" => 1,
+                "declaredValue" => $data->package_value,
                 "declaredValueCurrency" => "USD",
 
                 "description" => "shipment description",

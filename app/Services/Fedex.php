@@ -2,22 +2,23 @@
 
 namespace App\Services;
 
-use App\Http\Requests\CreateShipmentFormRequest;
-use App\Interfaces\ShippingAdapterInterface;
+use stdClass;
+use FedEx\ShipService;
 use App\Models\Shipment;
+use Illuminate\Support\Str;
 use FedEx\RateService\Request;
-use FedEx\RateService\ComplexType;
 use FedEx\RateService\SimpleType;
 
-use FedEx\OpenShipService\Request as OpenShipRequest;
-use FedEx\OpenShipService\ComplexType as OpenShipComplexType;
-use FedEx\OpenShipService\SimpleType as OpenShipSimpleType;
-
-use FedEx\ShipService;
-use FedEx\ShipService\ComplexType as ShipComplexType;
-use FedEx\ShipService\SimpleType as ShipSimpleType;
+use FedEx\RateService\ComplexType;
 use Illuminate\Support\Facades\Storage;
-use stdClass;
+use App\Interfaces\ShippingAdapterInterface;
+
+use App\Http\Requests\CreateShipmentFormRequest;
+use FedEx\ShipService\SimpleType as ShipSimpleType;
+use FedEx\OpenShipService\Request as OpenShipRequest;
+use FedEx\ShipService\ComplexType as ShipComplexType;
+use FedEx\OpenShipService\SimpleType as OpenShipSimpleType;
+use FedEx\OpenShipService\ComplexType as OpenShipComplexType;
 
 class Fedex implements ShippingAdapterInterface
 {
@@ -46,7 +47,7 @@ class Fedex implements ShippingAdapterInterface
         $rateRequest->RequestedShipment->Shipper->Address->PostalCode = $data['from']['capital']['postal_code'];
         $rateRequest->RequestedShipment->Shipper->Address->CountryCode = $data['from']['code'];
 
-        // //recipient
+         //recipient
         $rateRequest->RequestedShipment->Recipient->Address->City = $data['to']['capital']['name'];
         $rateRequest->RequestedShipment->Recipient->Address->PostalCode = $data['to']['capital']['postal_code'];
         $rateRequest->RequestedShipment->Recipient->Address->CountryCode = $data['to']['code'];
@@ -111,239 +112,6 @@ class Fedex implements ShippingAdapterInterface
 
     public function createShipment(object $data)
     {
-
-        //     $userCredential = new ShipComplexType\WebAuthenticationCredential();
-        //     $userCredential
-        //         ->setKey(env('FEDEX_KEY'))
-        //         ->setPassword(env('FEDEX_PASSWORD'));
-
-        //     $webAuthenticationDetail = new ShipComplexType\WebAuthenticationDetail();
-        //     $webAuthenticationDetail->setUserCredential($userCredential);
-
-        //     $clientDetail = new ShipComplexType\ClientDetail();
-        //     $clientDetail
-        //         ->setAccountNumber(env('FEDEX_ACCOUNT_NUMBER'))
-        //         ->setMeterNumber(env('FEDEX_METER_NUMBER'));
-
-        //     $version = new ShipComplexType\VersionId();
-        //     $version
-        //         ->setMajor(26)
-        //         ->setIntermediate(0)
-        //         ->setMinor(0)
-        //         ->setServiceId('ship');
-        //     // dd($data);
-        //     $shipperAddress = new ShipComplexType\Address();
-        //     $shipperAddress
-        //     ->setStreetLines(['Address Line 1'])
-        // ->setCity('Austin')
-        // ->setStateOrProvinceCode('TX')
-        // ->setPostalCode('73301')
-        // ->setCountryCode('US');
-        //     // ->setStreetLines(['Address Line 1'])
-        //         // ->setCity('Dubai')
-        //         // ->setStateOrProvinceCode('')
-        //         // ->setPostalCode('00000')
-        //         // ->setCountryCode('AE');
-
-        //     $shipperContact = new ShipComplexType\Contact();
-        //     $shipperContact
-        //         ->setCompanyName('Company Name')
-        //         ->setEMailAddress('test@example.com')
-        //         ->setPersonName('Person Name')
-        //         ->setPhoneNumber(('123-123-1234'));
-
-        //     $shipper = new ShipComplexType\Party();
-        //     $shipper
-        //         ->setAccountNumber(env('FEDEX_ACCOUNT_NUMBER'))
-        //         ->setAddress($shipperAddress)
-        //         ->setContact($shipperContact);
-
-        //     $recipientAddress = new ShipComplexType\Address();
-        //     $recipientAddress
-        //     ->setStreetLines(['Address Line 1'])
-        //     ->setCity('Herndon')
-        //     ->setStateOrProvinceCode('VA')
-        //     ->setPostalCode('20171')
-        //     ->setCountryCode('US');
-        //     // ->setStreetLines(['Address Line 1'])
-        //         // ->setCity('Cairo')
-        //         // ->setStateOrProvinceCode('CA')
-        //         // ->setPostalCode('11865')
-        //         // ->setCountryCode('EG');
-
-        //         // ->setStreetLines(['Address Line 1'])
-        //     // ->setCity('Austin')
-        //     // ->setStateOrProvinceCode('TX')
-        //     // ->setPostalCode('73301')
-        //     // ->setCountryCode('US');
-
-        //     $recipientContact = new ShipComplexType\Contact();
-        //     $recipientContact
-        //         ->setPersonName('Contact Name')
-        //         ->setPhoneNumber('1234567890');
-
-        //     $recipient = new ShipComplexType\Party();
-        //     $recipient
-        //         ->setAddress($recipientAddress)
-        //         ->setContact($recipientContact);
-
-        //     $labelSpecification = new ShipComplexType\LabelSpecification();
-        //     $labelSpecification
-        //         ->setLabelStockType(new ShipSimpleType\LabelStockType(ShipSimpleType\LabelStockType::_PAPER_7X4POINT75))
-        //         ->setImageType(new ShipSimpleType\ShippingDocumentImageType(ShipSimpleType\ShippingDocumentImageType::_PDF))
-        //         ->setLabelFormatType(new ShipSimpleType\LabelFormatType(ShipSimpleType\LabelFormatType::_COMMON2D));
-
-        //     $packageLineItem1 = new ShipComplexType\RequestedPackageLineItem();
-        //     $packageLineItem1
-        //         ->setSequenceNumber(1)
-        //         ->setItemDescription('Product description')
-        //         ->setDimensions(new ShipComplexType\Dimensions(array(
-        //             'Width' => 10,
-        //             'Height' => 10,
-        //             'Length' => 25,
-        //             'Units' => ShipSimpleType\LinearUnits::_IN
-        //         )))
-        //         ->setWeight(new ShipComplexType\Weight(array(
-        //             'Value' => 2,
-        //             'Units' => ShipSimpleType\WeightUnits::_LB
-        //         )));
-
-
-        //     $cus = new ShipComplexType\CustomsClearanceDetail();
-        //     //  new ShipComplexType\CustomsClearanceDetail();
-        //     $money = new ShipComplexType\Money();
-        //     $money->setCurrency('USD');
-        //     $money->setAmount('120');
-        //     $cus->setCustomsValue($money);
-        //     $commodity = new ShipComplexType\Commodity();
-        //     $commodity->setNumberOfPieces(1);
-        //     $commodity->setDescription('Test');
-        //     $commodity->setCountryOfManufacture('EG');
-        //     $commodity->setWeight(new ShipComplexType\Weight([
-        //         'Units' => ShipSimpleType\WeightUnits::_LB,
-        //         'Value' => 2
-        //     ]));
-        //     $commodity->setQuantity(1);
-        //     $commodity->setQuantityUnits('EA');
-        //     $commodity->setUnitPrice(new ShipComplexType\Money([
-        //             'Currency' => 'USD',
-        //             'Amount' => '120'
-        //         ]));
-        //     $cus->setCommodities($commodity->toArray());
-
-        //     // $dutiesPayment = new ShipComplexType\Payment();
-        //     // $dutiesPayment->setPaymentType(ShipSimpleType\PaymentType::_SENDER);
-        //     // $cus->setDutiesPayment($dutiesPayment);
-        //     // $cus->setDocumentContent(ShipSimpleType\InternationalDocumentContentType);
-        //     // $cus->setDutiesPayment($money);
-        //     // $CustomsClearanceDetail = [
-        //     //     'DutiesPayment' => new ShipComplexType\Payment([
-        //     //       'PaymentType' => ShipSimpleType\PaymentType::_SENDER, 
-        //     //     ]),
-        //     //     'DocumentContent' => ShipSimpleType\InternationalDocumentContentType::_NON_DOCUMENTS,
-        //     //     'CustomsValue' => new ShipComplexType\Money([
-        //     //       'Currency' => 'USD',
-        //     //       'Amount' => $PriceExShipping
-        //     //     ]),
-        //     //     'Commodities' => $Commodities,
-        //     //     'ExportDetail' => new ShipComplexType\ExportDetail([
-        //     //       'ExportComplianceStatement' => '30.37(f)'
-        //     //     ])
-        //     //   ];
-
-        //     $shippingChargesPayor = new ShipComplexType\Payor();
-        //     $shippingChargesPayor->setResponsibleParty($shipper);
-
-        //     $shippingChargesPayment = new ShipComplexType\Payment();
-        //     $shippingChargesPayment
-        //         ->setPaymentType(ShipSimpleType\PaymentType::_SENDER)
-        //         ->setPayor($shippingChargesPayor);
-
-        //     $requestedShipment = new ShipComplexType\RequestedShipment();
-        //     $requestedShipment->setShipTimestamp(date('c'));
-        //     $requestedShipment->setDropoffType(new ShipSimpleType\DropoffType(ShipSimpleType\DropoffType::_REGULAR_PICKUP));
-        //     $requestedShipment->setServiceType(new ShipSimpleType\ServiceType(ShipSimpleType\ServiceType::_INTERNATIONAL_PRIORITY));
-        //     $requestedShipment->setPackagingType(new ShipSimpleType\PackagingType(ShipSimpleType\PackagingType::_YOUR_PACKAGING));
-        //     $requestedShipment->setShipper($shipper);
-        //     $requestedShipment->setRecipient($recipient);
-        //     $requestedShipment->setLabelSpecification($labelSpecification);
-        //     $requestedShipment->setRateRequestTypes(array(new ShipSimpleType\RateRequestType(ShipSimpleType\RateRequestType::_PREFERRED)));
-        //     $requestedShipment->setPackageCount(1);
-        //     $requestedShipment->setRequestedPackageLineItems([
-        //         $packageLineItem1
-        //     ]);
-        //     $requestedShipment->setShippingChargesPayment($shippingChargesPayment);
-        //     $requestedShipment->setCustomsClearanceDetail($cus);
-
-        //     $processShipmentRequest = new ShipComplexType\ProcessShipmentRequest();
-        //     $processShipmentRequest->setWebAuthenticationDetail($webAuthenticationDetail);
-        //     $processShipmentRequest->setClientDetail($clientDetail);
-        //     $processShipmentRequest->setVersion($version);
-        //     $processShipmentRequest->setRequestedShipment($requestedShipment);
-
-
-
-
-
-        //     $shipService = new ShipService\Request();
-        //     // //$shipService->getSoapClient()->__setLocation('https://ws.fedex.com:443/web-services/ship');
-        //     $result = $shipService->getProcessShipmentReply($processShipmentRequest);
-        //     dd($result);
-        //     // // return response()->json($result);
-
-        //     // // Save .pdf label    
-        //     // // $labelPath = Storage::put('public/documents/label.pdf', $result->CompletedShipmentDetail->CompletedPackageDetails[0]->Label->Parts[0]->Image);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $userCredential = new ShipComplexType\WebAuthenticationCredential();
         $userCredential
             ->setKey(env('FEDEX_KEY'))
@@ -366,24 +134,18 @@ class Fedex implements ShippingAdapterInterface
 
         $shipperAddress = new ShipComplexType\Address();
         $shipperAddress
-            // ->setStreetLines(['Address Line 1'])
-            // ->setCity('Austin')
-            // ->setStateOrProvinceCode('TX')
-            // ->setPostalCode('73301')
-            // ->setCountryCode('US');
-
-            ->setStreetLines(['Address Line 1'])
-            ->setCity('Austin')
-            ->setStateOrProvinceCode('TX')
-            ->setPostalCode('73301')
-            ->setCountryCode('US');
+            ->setStreetLines([$data->shipper_adress_line])
+            ->setCity($data->shipperCity->name)
+            ->setStateOrProvinceCode($data->shipperCity->iso2)
+            ->setPostalCode($data->shipperCity->postal_code)
+            ->setCountryCode($data->shipperCountry->code);
 
         $shipperContact = new ShipComplexType\Contact();
         $shipperContact
             ->setCompanyName('Company Name')
-            ->setEMailAddress('test@example.com')
-            ->setPersonName('Person Name')
-            ->setPhoneNumber(('123-123-1234'));
+            ->setEMailAddress($data->shipper_email)
+            ->setPersonName($data->shipper_name)
+            ->setPhoneNumber($data->shipper_number);
 
         $shipper = new ShipComplexType\Party();
         $shipper
@@ -393,27 +155,16 @@ class Fedex implements ShippingAdapterInterface
 
         $recipientAddress = new ShipComplexType\Address();
         $recipientAddress
-            // ->setStreetLines(['Address Line 1'])
-            // ->setCity('Dubai')
-            // ->setStateOrProvinceCode('')
-            // ->setPostalCode('00000')
-            // ->setCountryCode('AE');  
+            ->setStreetLines([$data->recipient_adress_line])
+            ->setCity($data->recipientCity->name)
+            ->setStateOrProvinceCode($data->recipientCity->iso2)
+            ->setPostalCode($data->recipientCity->postal_code)
+            ->setCountryCode($data->recipientCountry->code);
 
-            ->setStreetLines(['Address Line 1'])
-            ->setCity('Richmond')
-            ->setStateOrProvinceCode('BC')
-            ->setPostalCode('V7C4V4')
-            ->setCountryCode('CA');
-
-        // ->setStreetLines(['Address Line 1'])
-        //     ->setCity('Austin')
-        //     ->setStateOrProvinceCode('TX')
-        //     ->setPostalCode('73301')
-        //     ->setCountryCode('US');
         $recipientContact = new ShipComplexType\Contact();
         $recipientContact
-            ->setPersonName('Contact Name')
-            ->setPhoneNumber('1234567890');
+            ->setPersonName($data->recipient_name)
+            ->setPhoneNumber($data->recipient_number);
 
         $recipient = new ShipComplexType\Party();
         $recipient
@@ -431,13 +182,13 @@ class Fedex implements ShippingAdapterInterface
             ->setSequenceNumber(1)
             ->setItemDescription('Product description')
             ->setDimensions(new ShipComplexType\Dimensions(array(
-                'Width' => 10,
-                'Height' => 10,
-                'Length' => 25,
+                'Width' =>  $data->package_width,
+                'Height' => $data->package_height,
+                'Length' => $data->package_length,
                 'Units' => ShipSimpleType\LinearUnits::_IN
             )))
             ->setWeight(new ShipComplexType\Weight(array(
-                'Value' => 2,
+                'Value' => $data->package_weight,
                 'Units' => ShipSimpleType\WeightUnits::_LB
             )));
 
@@ -450,10 +201,9 @@ class Fedex implements ShippingAdapterInterface
             ->setPayor($shippingChargesPayor);
 
         $cus = new ShipComplexType\CustomsClearanceDetail();
-        //  new ShipComplexType\CustomsClearanceDetail();
         $money = new ShipComplexType\Money();
         $money->setCurrency('USD');
-        $money->setAmount('120');
+        $money->setAmount($data->package_value);
         $cus->setCustomsValue($money);
 
         $commodity = new ShipComplexType\Commodity();
@@ -462,41 +212,28 @@ class Fedex implements ShippingAdapterInterface
         $commodity->setCountryOfManufacture('US');
         $commodity->setWeight(new ShipComplexType\Weight([
             'Units' => ShipSimpleType\WeightUnits::_LB,
-            'Value' => 2
+            'Value' => $data->package_weight
         ]));
-        $commodity->setQuantity(1);
+        $commodity->setQuantity($data->package_quantity);
         $commodity->setQuantityUnits('EA');
         $commodity->setUnitPrice(new ShipComplexType\Money([
             'Currency' => 'USD',
-            'Amount' => '120'
+            'Amount' => $data->package_value
         ]));
         $commodity->setCustomsValue(new ShipComplexType\Money([
             'Currency' => 'USD',
-            'Amount' => '120'
+            'Amount' => $data->package_value
         ]));
 
         $cus->setCommodities($commodity->toArray());
         $cus->setDutiesPayment($shippingChargesPayment);
-
         $cus->setDocumentContent(ShipSimpleType\InternationalDocumentContentType::_NON_DOCUMENTS);
 
-
-        // $creditCard = new ShipComplexType\CreditCard();
-        // $creditCard->setNumber('4263093040006602');
-        // $creditCard->setExpirationDate('09/21');
-        //     // {
-        //     const _ACCOUNT = 'ACCOUNT';
-        //     const _CASH = 'CASH';
-        //     const _COLLECT = 'COLLECT';
-        //     const _CREDIT_CARD = 'CREDIT_CARD';
-        //     const _RECIPIENT = 'RECIPIENT';
-        //     const _SENDER = 'SENDER';
-        //     const _THIRD_PARTY = 'THIRD_PARTY';
-        // }
         $requestedShipment = new ShipComplexType\RequestedShipment();
         $requestedShipment->setShipTimestamp(date('c'));
         $requestedShipment->setDropoffType(new ShipSimpleType\DropoffType(ShipSimpleType\DropoffType::_REGULAR_PICKUP));
-        $requestedShipment->setServiceType(new ShipSimpleType\ServiceType(ShipSimpleType\ServiceType::_FEDEX_EXPRESS_SAVER));
+        $shipmentType = $data->package_shipment_type == 'standard' ? ShipSimpleType\ServiceType::_INTERNATIONAL_ECONOMY : ShipSimpleType\ServiceType::_INTERNATIONAL_PRIORITY;
+        $requestedShipment->setServiceType(new ShipSimpleType\ServiceType($shipmentType));
         $requestedShipment->setPackagingType(new ShipSimpleType\PackagingType(ShipSimpleType\PackagingType::_YOUR_PACKAGING));
         $requestedShipment->setShipper($shipper);
         $requestedShipment->setRecipient($recipient);
@@ -516,10 +253,29 @@ class Fedex implements ShippingAdapterInterface
         $processShipmentRequest->setRequestedShipment($requestedShipment);
 
         $shipService = new ShipService\Request();
-
         //$shipService->getSoapClient()->__setLocation('https://ws.fedex.com:443/web-services/ship');
-        $result = $shipService->getProcessShipmentReply($processShipmentRequest);
-        dd($result);
-        Shipment::find($data->id)->update(['provider_status' => $processShipmentRequest->toArray()]);
-    }
+        $res = $shipService->getProcessShipmentReply($processShipmentRequest);
+
+        if ($res->HighestSeverity == 'SUCCESS' && isset($res->CompletedShipmentDetail) && isset($res->CompletedShipmentDetail->CompletedPackageDetails)) {
+            $image= $res->CompletedShipmentDetail->CompletedPackageDetails[0]->Label->Parts[0]->Image;
+            $labelPath = "public/documents/" . Str::random() . '_' . time() . '.pdf';
+
+            Storage::put(
+                $labelPath,
+                $image
+            );
+
+            Shipment::whereId($data->id)->update([
+                'label_path' => asset(Storage::url($labelPath)),
+                'provider_shipment_id' => $res->CompletedShipmentDetail->CompletedPackageDetails[0]->TrackingIds[0]->TrackingNumber,
+                'provider_status' => '',
+                'status' => 'shipped'
+            ]);
+        } elseif ($res->HighestSeverity == 'ERROR') {
+            Shipment::whereId($data->id)->update([
+                'provider_status' => isset($res->Notifications) ? $res->Notifications[0]->Message : '',
+                'status' => 'pending_need_updates'
+            ]);
+        }
+ }
 }
