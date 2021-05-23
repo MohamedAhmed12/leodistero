@@ -137,7 +137,7 @@ class Fedex implements ShippingAdapterInterface
             ->setStreetLines([$data->shipper_adress_line])
             ->setCity($data->shipperCity->name)
             ->setStateOrProvinceCode($data->shipperCity->iso2)
-            ->setPostalCode($data->shipperCity->postal_code)
+            ->setPostalCode($data->shipper_zip_code)
             ->setCountryCode($data->shipperCountry->code);
 
         $shipperContact = new ShipComplexType\Contact();
@@ -158,7 +158,7 @@ class Fedex implements ShippingAdapterInterface
             ->setStreetLines([$data->recipient_adress_line])
             ->setCity($data->recipientCity->name)
             ->setStateOrProvinceCode($data->recipientCity->iso2)
-            ->setPostalCode($data->recipientCity->postal_code)
+            ->setPostalCode($data->recipient_zip_code)
             ->setCountryCode($data->recipientCountry->code);
 
         $recipientContact = new ShipComplexType\Contact();

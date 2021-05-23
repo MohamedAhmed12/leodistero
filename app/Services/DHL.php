@@ -16,6 +16,7 @@ use DHL\Client\Web as WebserviceClient;
 use Illuminate\Support\Facades\Storage;
 use App\Interfaces\ShippingAdapterInterface;
 use App\Http\Requests\CreateShipmentFormRequest;
+use DateTime;
 
 class DHL implements ShippingAdapterInterface
 {
@@ -65,6 +66,8 @@ class DHL implements ShippingAdapterInterface
 
     public function createShipment(object $data)
     {
+        // $data= new DateTime($data->package_shipping_date_time);
+        // dd($data['date']);
         $body = [
             "plannedShippingDateAndTime" => $data->package_shipping_date_time,
             "pickup" => [
@@ -90,7 +93,7 @@ class DHL implements ShippingAdapterInterface
             "customerDetails" => [
                 "shipperDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data->shipperCity->postal_code,
+                        "postalCode" => $data->shipper_zip_code,
                         "cityName" =>  $data->shipperCity->name,
                         "countryCode" => $data->shipperCountry->code,
                         "provinceCode" => $data->shipperCountry->code,
@@ -106,7 +109,7 @@ class DHL implements ShippingAdapterInterface
                 ],
                 "receiverDetails" => [
                     "postalAddress" => [
-                        "postalCode" => $data->recipientCity->postal_code,
+                        "postalCode" => $data->recipient_zip_code,
                         "cityName" =>  $data->recipientCity->name,
                         "countryCode" =>  $data->recipientCountry->code,
                         "provinceCode" => $data->recipientCountry->code,
@@ -125,11 +128,11 @@ class DHL implements ShippingAdapterInterface
                 "packages" => [
                     [
                         "typeCode" => "2BP",
-                        "weight" => $data->package_weight,
+                        "weight" => intval($data->package_weight),
                         "dimensions" => [
-                            "length" => $data->package_length,
-                            "width" => $data->package_width,
-                            "height" => $data->package_height
+                            "length" => intval($data->package_length),
+                            "width" => intval($data->package_width),
+                            "height" => intval($data->package_height)
                         ],
                         "customerReferences" => [
                             [
@@ -141,7 +144,7 @@ class DHL implements ShippingAdapterInterface
                     ]
                 ],
                 "isCustomsDeclarable" => true,
-                "declaredValue" => $data->package_value,
+                "declaredValue" => intval($data->package_value),
                 "declaredValueCurrency" => "USD",
 
                 "description" => "shipment description",

@@ -72,7 +72,7 @@ class Aramex implements ShippingAdapterInterface
                 'cell_phone' => $data->shipper_number,
                 'country_code' => $data->shipperCountry->code,
                 'city' => $data->shipperCity->name,
-                'zip_code' => $data->shipperCity->postal_code,
+                'zip_code' => $data->shipper_zip_code,
                 'line1' => $data->shipper_adress_line,
                 'line2' => $data->shipper_adress_line
             ],
@@ -83,7 +83,7 @@ class Aramex implements ShippingAdapterInterface
                 'cell_phone' => $data->recipient_number,
                 'country_code' => $data->recipientCountry->code,
                 'city' => $data->recipientCity->name,
-                'zip_code' => $data->recipientCity->postal_code,
+                'zip_code' => $data->recipient_zip_code,
                 'line1' => $data->recipient_adress_line,
                 'line2' => $data->recipient_adress_line
             ],
