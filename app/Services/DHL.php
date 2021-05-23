@@ -21,7 +21,6 @@ class DHL implements ShippingAdapterInterface
 {
     public function calculateRate($data)
     {
-
         $query = $this->setQuery([
             'originCountryCode' => $data['from']['code'],
             'originCityName' => $data['from']['capital']['name'],
@@ -179,7 +178,7 @@ class DHL implements ShippingAdapterInterface
             ]);
         } else{
             $errMsg = '';
-    
+            
             if ($res->json('detail')) {
                 if ($res->json('detail') == 'Multiple problems found, see Additional Details') {
                     $errMsg = $res->json('additionalDetails')[0];
@@ -187,6 +186,7 @@ class DHL implements ShippingAdapterInterface
                     $errMsg =  $res->json('detail');
                 }
             }
+            // dd($errMsg);
     
             Shipment::whereId($data->id)->update([
                 'provider_status' => $errMsg,

@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\City;
 use App\Services\DHL;
 use App\Models\Country;
 use App\Services\Fedex;
-use App\Services\AramexAdapter;
-use App\Interfaces\ShippingAdapterInterface;
-use App\Services\Aramex;
-use Maatwebsite\Excel\Concerns\ToArray;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateShipmentFormRequest;
 use App\Models\Shipment;
+use App\Services\Aramex;
 use DHL\Datatype\AM\Request;
+use App\Services\AramexAdapter;
+use App\Http\Controllers\Controller;
+use Maatwebsite\Excel\Concerns\ToArray;
+use App\Interfaces\ShippingAdapterInterface;
+use App\Http\Requests\CreateShipmentFormRequest;
 
 class ShipmentController extends Controller
 {
@@ -30,8 +31,14 @@ class ShipmentController extends Controller
     public function calculateRate()
     {
         $data = request()->all();
-        $data['from'] = Country::with('capital')->findOrFail($data['from'])->toArray();
-        $data['to'] = Country::with('capital')->findOrFail($data['to'])->ToArray();
+        $data['from'] = Country::findOrFail($data['from'])->toArray();
+        $data['to'] = Country::findOrFail($data['to'])->ToArray();
+        $data['from']['capital'] =
+            City::whereName($data['from']['capital'])->first() ??
+            City::where(['country_id' => $data['from']['id']])->first();
+        $data['to']['capital'] =
+            City::whereName($data['to']['capital'])->first() ??
+            City::where(['country_id' => $data['to']['id']])->first();
 
         $rate = [
             'dhl' => $this->dhl->calculateRate($data),
@@ -47,7 +54,7 @@ class ShipmentController extends Controller
         $data = $request->validated();
         $data['provider'] = $shippingProvider;
         $shipment = Shipment::create($data);
-        
+
         return response()->json($shipment);
     }
 }

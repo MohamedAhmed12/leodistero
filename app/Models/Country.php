@@ -21,11 +21,11 @@ class Country extends Model
     ];
 
 
-    /**
-     * accessor to get the default city.
-     *
-     * @var array
-     */
+    // /**
+    //  * accessor to get the default city.
+    //  *
+    //  * @var array
+    //  */
     // public function getCapitalAttribute()
     // {
     //     return City::whereName($this->capital)->first() ?? $this->cities->first();

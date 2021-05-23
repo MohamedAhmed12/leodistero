@@ -173,7 +173,9 @@
             <tr>
                 <th>Label</th>
                 <td>
+                    @if( $shipment->label_path)
                     <iframe src="{{ $shipment->label_path }}" alt="" style="height: 500px;"></iframe>
+                    @endif
                 </td>
             </tr>
         </table>
