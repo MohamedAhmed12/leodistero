@@ -174,7 +174,7 @@ class DHL implements ShippingAdapterInterface
                 'label_path' => asset(Storage::url($labelPath)),
                 'provider_shipment_id' => $res['shipmentTrackingNumber'],
                 'provider_status' => '',
-                'status' => 5
+                'status' => 'shipped'
             ]);
         } else{
             $errMsg = '';
@@ -186,11 +186,10 @@ class DHL implements ShippingAdapterInterface
                     $errMsg =  $res->json('detail');
                 }
             }
-            // dd($errMsg);
-    
+
             Shipment::whereId($data->id)->update([
                 'provider_status' => $errMsg,
-                'status' => 2
+                'status' => 'pending_need_updates'
             ]);
         } 
     }
