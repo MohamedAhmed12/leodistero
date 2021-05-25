@@ -92,6 +92,7 @@ class CityController extends Controller
     {
         $validated = $request->validate([
             'name'         => ['required', 'unique:cities,name,' . $city->id],
+            'postal_code'         => ['required', 'unique:cities,postal_code,' . $city->id],
             'country'         => ['required'],
         ]);
         $validated['country_id'] = json_decode($validated['country'])->id;

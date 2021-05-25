@@ -14,6 +14,8 @@ class Aramex implements ShippingAdapterInterface
 {
     public function calculateRate($data)
     {
+        // dd( $data['from']['capital']);
+
         $originAddress = [
             'line1' => 'Test string',
             'city' => $data['from']['capital']['name'],
@@ -45,7 +47,7 @@ class Aramex implements ShippingAdapterInterface
 
         $standardResponse = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsStandard, $currency);
         $expressResponse = AramexProvider::calculateRate($originAddress, $destinationAddress, $shipmentDetailsEXP, $currency);
-
+// dd( $expressResponse);
         $standard = new stdClass;
         $express = new stdClass;
         if (!isset($standardResponse->error) && isset($standardResponse->TotalAmount)) {

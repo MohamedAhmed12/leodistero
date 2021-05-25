@@ -1,22 +1,23 @@
 <?php
 
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UsersController;
 // use App\Http\Controllers\ContactController;
-use App\Http\Controllers\OrderController;
-// use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
+// use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\UsersController;
 use App\Http\Controllers\CountryController;
 use App\Http\Controllers\GlossaryController;
-use App\Http\Controllers\SettingsController;
-use App\Http\Controllers\DashboardController;
 // use App\Http\Controllers\DocumentGeneratorController;
 // use App\Http\Controllers\StatisticController;
 // use App\Http\Controllers\SubscriberController;
 // use App\Http\Controllers\DocumentTypeController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\ShipmentController;
-use App\Http\Controllers\StateController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,3 +60,8 @@ Route::resource('/shipments', ShipmentController::class)->middleware(['auth','ve
 Auth::routes(['verify'=>true]);
 
 // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('test', function( ){
+   $a= Carbon::create(2021, 06, 05, 3, 14, 7, 'GMT');
+dd($a->isoFormat('YYYY-MM-DD\THH:mm:SS zZ'));
+});

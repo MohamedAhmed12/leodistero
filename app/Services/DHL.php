@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use DateTime;
 use stdClass;
+use DateTimeZone;
 use Carbon\Carbon;
 use App\Models\Shipment;
 use DHL\Datatype\GB\Piece;
@@ -16,7 +18,7 @@ use DHL\Client\Web as WebserviceClient;
 use Illuminate\Support\Facades\Storage;
 use App\Interfaces\ShippingAdapterInterface;
 use App\Http\Requests\CreateShipmentFormRequest;
-use DateTime;
+use Hamcrest\Type\IsString;
 
 class DHL implements ShippingAdapterInterface
 {
@@ -66,10 +68,17 @@ class DHL implements ShippingAdapterInterface
 
     public function createShipment(object $data)
     {
-        // $data= new DateTime($data->package_shipping_date_time);
-        // dd($data['date']);
+        $data->package_shipping_date_time = Carbon::create($data->package_shipping_date_time);
+        // $data->package_shipping_date_time->setTimezone(new DateTimeZone('GMT'));
+
+// dd($data->package_shipping_date_time->isoFormat('YYYY-MM-DD\THH:mm:SS zZ'));
+// dd($data->package_shipping_date_time->format('y-m-d\TH:m:s \G\M\T z'));/
+// '2010-02-11T17:10:09 GMT+01:00')
+// "2021-05-28T11:58:00 UTC+00:00"
+// "2021-05-28T11:58:00 UTC+00:00"
+// dd("2021-05-28T11:58:00 GMT+00:00", ($data->package_shipping_date_time->isoFormat('YYYY-MM-DD\THH:mm:SS zZ')));
         $body = [
-            "plannedShippingDateAndTime" => $data->package_shipping_date_time,
+            "plannedShippingDateAndTime" =>"2021-05-28T11:58:00 GMT+00:00",
             "pickup" => [
                 "isRequested" => false,
                 "closeTime" => "18:00",
