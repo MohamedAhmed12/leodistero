@@ -78,7 +78,7 @@ class Fedex implements ShippingAdapterInterface
         $rateReply = $rateServiceRequest->getGetRatesReply($rateRequest); // send true as the 2nd argument to return the SoapClient's stdClass response.
 
         $res = [];
-
+// dd($rateReply);
         if (!empty($rateReply->RateReplyDetails)) {
             foreach ($rateReply->RateReplyDetails as $rateReplyDetail) {
                 if (!empty($rateReplyDetail->RatedShipmentDetails)) {

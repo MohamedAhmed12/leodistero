@@ -175,6 +175,10 @@
                 <td>
                     @if( $shipment->label_path)
                     <iframe src="{{ $shipment->label_path }}" alt="" style="height: 500px;"></iframe>
+                    
+                    <a href="{{ $shipment->label_path }}" style="text-decoration: none;" download>
+                        <h2>Download Label</h2>
+                    </a>
                     @endif
                 </td>
             </tr>

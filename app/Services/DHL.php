@@ -42,7 +42,7 @@ class DHL implements ShippingAdapterInterface
             ->get('https://express.api.dhl.com/mydhlapi/test/rates', $query);
 
         $res = $res->json();
-
+        
         $standard = new stdClass;
         $express = new stdClass;
 
